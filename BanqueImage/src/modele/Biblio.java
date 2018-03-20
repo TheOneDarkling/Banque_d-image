@@ -10,7 +10,7 @@ public class Biblio {
 	{
 		for(int i=0; i<m_listeNom.size();i++)
 		{
-			m_listeNom.add("images"+String.valueOf(i)+".jpg");
+			m_listeNom.add("images/"+String.valueOf(i)+".jpg");
 		}
 	}
 	
