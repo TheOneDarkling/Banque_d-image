@@ -20,36 +20,64 @@ public class Biblio extends Observable{
 	
 	private File m_fichierTitre = new File("data/nom.txt");
 	private File m_fichierFormat = new File("data/format.txt");
+	private File m_fichierTags = new File("data/tags.txt");
 	
 	
 	/* POUR LA SELECTION */
 	
+	public ArrayList<ImagePerso> m_listeImageSelection= new ArrayList();
+	
+	
+	
+	/*
+	 *  DEBUT DU CONSTRUCTEUR
+	 *  =====================
+	 *  
+	 * */
 	
 	
 	public Biblio() throws IOException
 	{
 
 		
-		/// LECTURE DU FICHIER NOM
+		/* MISE EN PLACE DE LA LECTURE*/
 		
 		BufferedReader brNom = new BufferedReader(new FileReader(m_fichierTitre));
 		String ligneNom;
-	
 		BufferedReader brFormat = new BufferedReader(new FileReader(m_fichierFormat));
 		String ligneFormat;
+		BufferedReader brTags = new BufferedReader(new FileReader(m_fichierTags));
+		String ligneTags;
 
+		
+		/* REMPLISSAGE DE LA LISTE D IMAGE*/
+		
 		for(int i=0; i<m_nbImages;i++)
 		{
 			ligneNom = brNom.readLine();
 			ligneFormat = brFormat.readLine();
+			ligneTags = brTags.readLine();
+			
+			
 			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+".jpg")));
+			m_listeImage.get(i).associerLesTags(ligneTags);
 			
 		}
+		
+		/* FERMETURE DES FLUX */
 		
 		brFormat.close();
 		brNom.close();
 	}
 	
+	
+	
+	
+	/*
+	 *  LE MAIN (POUR LES TEST)
+	 *  ========================
+	 *  
+	 * */
 	
 	public static void main(String[] args) throws IOException
 	{
@@ -64,6 +92,7 @@ public class Biblio extends Observable{
 			System.out.println("Titre  : " + b.m_listeImage.get(i).m_titre);
 			System.out.println("Format : " + b.m_listeImage.get(i).m_format);
 			System.out.println("Lien : " + b.m_listeImage.get(i).m_lien);
+			System.out.println("Tags : " + b.m_listeImage.get(i).afficherLesTags());
 			System.out.println("==========================================");
 		}
 		
