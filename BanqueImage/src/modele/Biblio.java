@@ -61,7 +61,16 @@ public class Biblio extends Observable{
 	public static void main(String[] args) throws IOException
 	{
 		Biblio b = new Biblio();
-		System.out.println(b.m_listeTitre.get(0));
+		
+		for(int i=0; i<b.m_nbImages; i++)
+		{
+			System.out.println("ID     : " + i);
+			System.out.println("Titre  : " + b.m_listeTitre.get(i));
+			System.out.println("Format : " + b.m_listeFormat.get(i));
+			System.out.println("Lien : " + b.m_listeNom.get(i));
+			System.out.println("==========================================");
+		}
+		
 	}
 	
 
