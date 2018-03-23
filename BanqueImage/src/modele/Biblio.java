@@ -13,9 +13,7 @@ public class Biblio extends Observable{
 	
 	/* LISTES DE BASE*/
 	
-	public ArrayList<String> m_listeNom = new ArrayList();
-	public ArrayList<String> m_listeTitre = new ArrayList();
-	public ArrayList<String> m_listeFormat = new ArrayList();
+	public ArrayList<ImagePerso> m_listeImage= new ArrayList();
 	public int m_nbImages = 9;
 	
 	/*  OBJETS POUR LA LECTURE DANS LES FICHIERS*/
@@ -30,31 +28,26 @@ public class Biblio extends Observable{
 	
 	public Biblio() throws IOException
 	{
-		for(int i=0; i<m_nbImages;i++)
-		{
-			m_listeNom.add("images/"+String.valueOf(i)+".jpg");
-			
-		}
+
 		
 		/// LECTURE DU FICHIER NOM
 		
 		BufferedReader brNom = new BufferedReader(new FileReader(m_fichierTitre));
-		String ligne;
-		
-		while ((ligne = brNom.readLine()) != null) {
-		   m_listeTitre.add(ligne);
-		}
-		brNom.close();
-		
-		/// LECTURE DU FICHIER FORMAT
-		
+		String ligneNom;
+	
 		BufferedReader brFormat = new BufferedReader(new FileReader(m_fichierFormat));
-		String ligneF;
-		
-		while ((ligneF = brFormat.readLine()) != null) {
-		   m_listeFormat.add(ligneF);
+		String ligneFormat;
+
+		for(int i=0; i<m_nbImages;i++)
+		{
+			ligneNom = brNom.readLine();
+			ligneFormat = brFormat.readLine();
+			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+".jpg")));
+			
 		}
+		
 		brFormat.close();
+		brNom.close();
 	}
 	
 	
@@ -62,12 +55,15 @@ public class Biblio extends Observable{
 	{
 		Biblio b = new Biblio();
 		
+		
+		/* AFFICHER TOUTES LES IMAGE */
+		
 		for(int i=0; i<b.m_nbImages; i++)
 		{
-			System.out.println("ID     : " + i);
-			System.out.println("Titre  : " + b.m_listeTitre.get(i));
-			System.out.println("Format : " + b.m_listeFormat.get(i));
-			System.out.println("Lien : " + b.m_listeNom.get(i));
+			System.out.println("ID     : " + b.m_listeImage.get(i).m_id);
+			System.out.println("Titre  : " + b.m_listeImage.get(i).m_titre);
+			System.out.println("Format : " + b.m_listeImage.get(i).m_format);
+			System.out.println("Lien : " + b.m_listeImage.get(i).m_lien);
 			System.out.println("==========================================");
 		}
 		
