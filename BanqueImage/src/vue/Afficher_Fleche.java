@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 
 public class Afficher_Fleche extends Canvas{
 	Image img;
+	Image img_inv;
 	public Afficher_Fleche(){
 		Frame f = new Frame();
 		f.setSize(1500, 800);
@@ -19,7 +20,8 @@ public class Afficher_Fleche extends Canvas{
 		f.add(this);
 		this.setPreferredSize(new Dimension(1500,150));
 		try {
-			img=ImageIO.read(new File("fleche.png")).getScaledInstance(250, 150, Image.SCALE_DEFAULT);;
+			img=ImageIO.read(new File("fleche.png")).getScaledInstance(250, 150, Image.SCALE_DEFAULT);
+			img_inv=ImageIO.read(new File("fleche_inv.png")).getScaledInstance(250, 150, Image.SCALE_DEFAULT);
 		} catch (IOException e) {
 			throw new RuntimeException("L'image fleche.png est introuvable");
 		}
@@ -28,6 +30,7 @@ public class Afficher_Fleche extends Canvas{
 	
 	public void paint(Graphics g) {
 		g.drawImage(img, 1500-250, 0, 250, 150, null);
+		g.drawImage(img_inv ,0, 0, 250, 150, null);
 	}
 	
 
