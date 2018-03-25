@@ -28,7 +28,7 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 	int pas = 50;
 	int startX = 50;
 	int startY = 20;
-	int numdebutdepage =0 ;
+	public int numdebutdepage =0 ;
 
 	public Afficher_images() {
 		super();
