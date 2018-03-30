@@ -11,6 +11,7 @@ import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -24,8 +25,8 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 	Image[] imgre;
 	int hauteur =(int) modele.Constantes.w;
 	int largeur=(int) modele.Constantes.h;
-	int resizedX = 250;
-	int resizedY = 200;
+	ArrayList<Integer>resizedX = new ArrayList() ;
+	ArrayList<Integer>resizedY =new ArrayList();
 	int pas = 50;
 	int startX = 50;
 	int startY = 20;
@@ -34,7 +35,7 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 	public Afficher_images() {
 		super();
 		this.setBackground(Color.green);
-
+	
 		try {
 			this.image = new Biblio();
 		} catch (IOException e1) {
@@ -51,7 +52,9 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 			try {
 
 				img[i] = ImageIO.read(new File(image.m_listeImage.get(i).m_lien));
-				imgre[i] = img[i].getScaledInstance(resizedX, resizedY, Image.SCALE_DEFAULT);
+				resizedX.add((int) image.m_listeImage.get(i).m_largeur*1/4);//trouver taille image
+				resizedY.add((int) image.m_listeImage.get(i).m_hauteur*1/4);//trouver taille image
+				imgre[i] = img[i].getScaledInstance(resizedX.get(i), resizedY.get(i), Image.SCALE_DEFAULT);
 			} catch (IOException e) {
 				throw new RuntimeException("L'image " + image.m_listeImage.get(i) + " est introuvable");
 			}
@@ -64,7 +67,7 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 	public void paint(Graphics g) {
 		for (int i = numdebutdepage*8; i < (numdebutdepage+1)*8; i++) {
 			if (i <=image.m_listeImage.size()-1) {
-				g.drawImage(imgre[i], startX + (resizedX + pas) * (i%4), startY + (resizedY + pas)*((i/4)%2), resizedX, resizedY, null);
+				g.drawImage(imgre[i], startX + (resizedX.get(i) + pas) * (i%4), startY + (resizedY.get(i) + pas)*((i/4)%2), resizedX.get(i), resizedY.get(i), null);
 			}
 		}
 	}
