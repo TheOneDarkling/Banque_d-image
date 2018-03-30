@@ -21,6 +21,7 @@ public class Biblio extends Observable{
 	private File m_fichierTitre = new File("data/nom.txt");
 	private File m_fichierFormat = new File("data/format.txt");
 	private File m_fichierTags = new File("data/tags.txt");
+	private File m_fichierNote = new File("data/note.txt");
 	
 	
 	/* POUR LA SELECTION */
@@ -41,7 +42,6 @@ public class Biblio extends Observable{
 		File dossierImage = new File("images/");
 		m_nbImages = dossierImage.listFiles().length;
 		
-		System.out.println(m_nbImages);
 		
 		/* MISE EN PLACE DE LA LECTURE*/
 		
@@ -51,6 +51,8 @@ public class Biblio extends Observable{
 		String ligneFormat;
 		BufferedReader brTags = new BufferedReader(new FileReader(m_fichierTags));
 		String ligneTags;
+		BufferedReader brNote = new BufferedReader(new FileReader(m_fichierNote));
+		String ligneNote;
 
 		
 		/* REMPLISSAGE DE LA LISTE D IMAGE*/
@@ -60,9 +62,9 @@ public class Biblio extends Observable{
 			ligneNom = brNom.readLine();
 			ligneFormat = brFormat.readLine();
 			ligneTags = brTags.readLine();
+			ligneNote = brNote.readLine();
 			
-			
-			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+".jpg")));
+			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+".jpg", ligneNote)));
 			m_listeImage.get(i).associerLesTags(ligneTags);
 			
 		}
@@ -96,8 +98,9 @@ public class Biblio extends Observable{
 			System.out.println("Format : " + b.m_listeImage.get(i).m_format);
 			System.out.println("Lien : " + b.m_listeImage.get(i).m_lien);
 			System.out.println("Tags : " + b.m_listeImage.get(i).afficherLesTags());
-			System.out.println("Proportions : Longeur = " + b.m_listeImage.get(i).m_largeur + "       Hauteur = " + b.m_listeImage.get(i).m_hauteur);
+			System.out.println("Proportions : Longeur = " + b.m_listeImage.get(i).m_largeur + "     +  Hauteur = " + b.m_listeImage.get(i).m_hauteur);
 			System.out.println("Taille : " + b.m_listeImage.get(i).m_byte + " ko");
+			System.out.println("Note(6 = pas de note) : " + b.m_listeImage.get(i).m_note);
 			System.out.println("======================================================================================");
 		}
 		
