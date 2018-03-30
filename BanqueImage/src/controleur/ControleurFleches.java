@@ -3,8 +3,10 @@ package controleur;
 import java.awt.Canvas;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ControleurFleches implements MouseListener{
+public class ControleurFleches implements MouseListener, Observer{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -36,6 +38,12 @@ public class ControleurFleches implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		
 	}
