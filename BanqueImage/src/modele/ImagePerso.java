@@ -17,9 +17,10 @@ public class ImagePerso {
   public double m_hauteur;
   public double m_largeur;
   public double m_byte;
+  public int m_note;
  
   
-  public ImagePerso(int id, String titre, String format, String lien)
+  public ImagePerso(int id, String titre, String format, String lien, String note)
   {
 	  m_id = id;
 	  m_titre = titre;
@@ -27,6 +28,8 @@ public class ImagePerso {
 	  m_lien = lien;
 	  
 	  chargerTaille();
+	  
+	  m_note = Integer.parseInt(note);
   }
   
   void associerLesTags(String tags)
