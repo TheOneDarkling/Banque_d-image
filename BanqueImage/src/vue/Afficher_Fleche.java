@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -13,15 +14,14 @@ import javax.imageio.ImageIO;
 public class Afficher_Fleche extends Canvas{
 	Image img;
 	Image img_inv;
+	int largeur=(int) modele.Constantes.w*2/3;
+	int hauteur=(int) modele.Constantes.h*1/12;
 	public Afficher_Fleche(){
-		Frame f = new Frame();
-		f.setSize(1500, 800);
-		f.setVisible(true);
-		f.add(this);
-		this.setPreferredSize(new Dimension(1500,150));
+		this.setBackground(Color.PINK);
+		this.setPreferredSize(new Dimension(largeur,hauteur));
 		try {
-			img=ImageIO.read(new File("fleche.png")).getScaledInstance(250, 150, Image.SCALE_DEFAULT);
-			img_inv=ImageIO.read(new File("fleche_inv.png")).getScaledInstance(250, 150, Image.SCALE_DEFAULT);
+			img=ImageIO.read(new File("fleche.png")).getScaledInstance(hauteur, hauteur, Image.SCALE_DEFAULT);
+			img_inv=ImageIO.read(new File("fleche_inv.png")).getScaledInstance(hauteur, hauteur, Image.SCALE_DEFAULT);
 		} catch (IOException e) {
 			throw new RuntimeException("L'image fleche.png est introuvable");
 		}
@@ -29,14 +29,11 @@ public class Afficher_Fleche extends Canvas{
 	}
 	
 	public void paint(Graphics g) {
-		g.drawImage(img, 1500-250, 0, 250, 150, null);
-		g.drawImage(img_inv ,0, 0, 250, 150, null);
+		g.drawImage(img,(largeur), 0, hauteur, hauteur, null);
+		g.drawImage(img_inv ,hauteur*2, 0, hauteur, hauteur, null);
 	}
 	
 
-	public static void main(String[] args) {
-		new Afficher_Fleche();
-
-	}
+	
 
 }

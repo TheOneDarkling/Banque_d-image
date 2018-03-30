@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -21,10 +22,10 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 	Biblio image;
 	Image[] img;
 	Image[] imgre;
+	int hauteur =(int) modele.Constantes.w;
+	int largeur=(int) modele.Constantes.h;
 	int resizedX = 250;
 	int resizedY = 200;
-	//int hauteur = 250;
-	//int largeur = 200;
 	int pas = 50;
 	int startX = 50;
 	int startY = 20;
@@ -32,6 +33,7 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 
 	public Afficher_images() {
 		super();
+		this.setBackground(Color.green);
 
 		try {
 			this.image = new Biblio();
@@ -40,18 +42,16 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 		}
 		this.img = new Image[image.m_listeImage.size()];
 		this.imgre = new Image[image.m_listeImage.size()];
-		Frame f = new Frame();
-		f.setSize(1500, 800);
-		f.setVisible(true);
-		f.add(this);
-		f.addWindowListener(this);
-		this.setPreferredSize(new Dimension(1400, 700));
+		
+		
+		this.setPreferredSize(new Dimension(hauteur*2/3,largeur*2/3));
+		
 		for (int i = 0; i < image.m_listeImage.size(); i++) {
 
 			try {
 
 				img[i] = ImageIO.read(new File(image.m_listeImage.get(i).m_lien));
-				imgre[i] = img[i].getScaledInstance(250, 200, Image.SCALE_DEFAULT);
+				imgre[i] = img[i].getScaledInstance(resizedX, resizedY, Image.SCALE_DEFAULT);
 			} catch (IOException e) {
 				throw new RuntimeException("L'image " + image.m_listeImage.get(i) + " est introuvable");
 			}
@@ -117,9 +117,5 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 
 	}
 
-	public static void main(String[] args) {
-		new Afficher_images();
-
-	}
-
+	
 }
