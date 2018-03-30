@@ -14,7 +14,7 @@ public class Biblio extends Observable{
 	/* LISTES DE BASE*/
 	
 	public ArrayList<ImagePerso> m_listeImage= new ArrayList();
-	public int m_nbImages = 9;
+	public int m_nbImages;
 	
 	/*  OBJETS POUR LA LECTURE DANS LES FICHIERS*/
 	
@@ -38,7 +38,10 @@ public class Biblio extends Observable{
 	
 	public Biblio() throws IOException
 	{
-
+		File dossierImage = new File("images/");
+		m_nbImages = dossierImage.listFiles().length;
+		
+		System.out.println(m_nbImages);
 		
 		/* MISE EN PLACE DE LA LECTURE*/
 		
@@ -93,7 +96,9 @@ public class Biblio extends Observable{
 			System.out.println("Format : " + b.m_listeImage.get(i).m_format);
 			System.out.println("Lien : " + b.m_listeImage.get(i).m_lien);
 			System.out.println("Tags : " + b.m_listeImage.get(i).afficherLesTags());
-			System.out.println("==========================================");
+			System.out.println("Proportions : Longeur = " + b.m_listeImage.get(i).m_largeur + "       Hauteur = " + b.m_listeImage.get(i).m_hauteur);
+			System.out.println("Taille : " + b.m_listeImage.get(i).m_byte + " ko");
+			System.out.println("======================================================================================");
 		}
 		
 	}
