@@ -23,13 +23,13 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 	Biblio image;
 	Image[] img;
 	Image[] imgre;
-	int hauteur =(int) modele.Constantes.w;
-	int largeur=(int) modele.Constantes.h;
+	int hauteur =(int) modele.Constantes.w*2/3;
+	int largeur=(int) modele.Constantes.h*2/3;
 	ArrayList<Integer>resizedX = new ArrayList() ;
 	ArrayList<Integer>resizedY =new ArrayList();
-	int pas = 50;
+	int pas = 20;
 	int startX = 50;
-	int startY = 20;
+	int startY = hauteur/4-100;
 	public int numdebutdepage =0 ;
 
 	public Afficher_images() {
@@ -43,17 +43,17 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 		}
 		this.img = new Image[image.m_listeImage.size()];
 		this.imgre = new Image[image.m_listeImage.size()];
+	
 		
-		
-		this.setPreferredSize(new Dimension(hauteur*2/3,largeur*2/3));
+		this.setPreferredSize(new Dimension(hauteur,largeur));
 		
 		for (int i = 0; i < image.m_listeImage.size(); i++) {
 
 			try {
 
 				img[i] = ImageIO.read(new File(image.m_listeImage.get(i).m_lien));
-				resizedX.add((int) image.m_listeImage.get(i).m_largeur*1/4);//trouver taille image
-				resizedY.add((int) image.m_listeImage.get(i).m_hauteur*1/4);//trouver taille image
+				resizedX.add((int) image.m_listeImage.get(i).m_largeur*1/7);//taille image pour mon pc seulement
+				resizedY.add((int) image.m_listeImage.get(i).m_hauteur*1/7);// taille image  pour mon pc seulement
 				imgre[i] = img[i].getScaledInstance(resizedX.get(i), resizedY.get(i), Image.SCALE_DEFAULT);
 			} catch (IOException e) {
 				throw new RuntimeException("L'image " + image.m_listeImage.get(i) + " est introuvable");

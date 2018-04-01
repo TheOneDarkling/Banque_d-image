@@ -29,7 +29,7 @@ public class Afficher_Fleche extends Canvas{
 	}
 	
 	public void paint(Graphics g) {
-		g.drawImage(img,(largeur), 0, hauteur, hauteur, null);
+		g.drawImage(img,largeur, 0, hauteur, hauteur, null);
 		g.drawImage(img_inv ,hauteur*2, 0, hauteur, hauteur, null);
 	}
 	
