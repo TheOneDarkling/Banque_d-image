@@ -25,12 +25,12 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 	Image[] imgre;
 	int hauteur =(int) modele.Constantes.w*2/3;
 	int largeur=(int) modele.Constantes.h*2/3;
-	ArrayList<Integer>resizedX = new ArrayList() ;
-	ArrayList<Integer>resizedY =new ArrayList();
+	ArrayList<Integer>resizedX = new ArrayList<Integer>() ;
+	ArrayList<Integer>resizedY =new ArrayList<Integer>();
 	int pas = 20;
 	int startX = 50;
 	int startY = hauteur/4-100;
-	public int numdebutdepage =0 ;
+	public int numdebutdepage=0;
 
 	public Afficher_images() {
 		super();

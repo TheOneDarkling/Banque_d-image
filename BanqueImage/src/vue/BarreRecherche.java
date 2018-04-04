@@ -12,8 +12,9 @@ public class BarreRecherche extends Panel {
 		this.setPreferredSize(new Dimension(largeur,hauteur));
 		this.setBackground(Color.RED);
 		
-		TextField test = new TextField();
+		TextField test = new TextField("                                                       ");
 		this.add(test);
+		
 	}
 
 }
