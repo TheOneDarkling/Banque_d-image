@@ -19,22 +19,19 @@ import javax.imageio.ImageIO;
 
 import modele.Biblio;
 
-public class Afficher_images extends Canvas implements Observer, WindowListener {
+public class Afficher_images extends Canvas implements Observer{
 	Biblio image;
 	Image[] img;
 	Image[] imgre;
-	int hauteur =(int) modele.Constantes.w*2/3;
-	int largeur=(int) modele.Constantes.h*2/3;
-	ArrayList<Integer>resizedX = new ArrayList<Integer>() ;
-	ArrayList<Integer>resizedY =new ArrayList<Integer>();
-	int pas = 20;
-	int startX = 50;
-	int startY = hauteur/4-100;
-	public int numdebutdepage=0;
-
+	int hauteur =(int) modele.Constantes.h*2/3;
+	int largeur=(int) modele.Constantes.w*2/3;
+	int pasX = 20;
+	int pasY = 30;
+	
 	public Afficher_images() {
 		super();
 		this.setBackground(Color.green);
+		this.setPreferredSize(new Dimension(largeur,hauteur));
 	
 		try {
 			this.image = new Biblio();
@@ -45,80 +42,40 @@ public class Afficher_images extends Canvas implements Observer, WindowListener 
 		this.imgre = new Image[image.m_listeImage.size()];
 	
 		
-		this.setPreferredSize(new Dimension(hauteur,largeur));
+		
 		
 		for (int i = 0; i < image.m_listeImage.size(); i++) {
 
 			try {
 
 				img[i] = ImageIO.read(new File(image.m_listeImage.get(i).m_lien));
-				resizedX.add((int) image.m_listeImage.get(i).m_largeur*1/7);//taille image pour mon pc seulement
-				resizedY.add((int) image.m_listeImage.get(i).m_hauteur*1/7);// taille image  pour mon pc seulement
-				imgre[i] = img[i].getScaledInstance(resizedX.get(i), resizedY.get(i), Image.SCALE_DEFAULT);
+				
+			
+		
+				
+				
 			} catch (IOException e) {
 				throw new RuntimeException("L'image " + image.m_listeImage.get(i) + " est introuvable");
 			}
 		}
+		
 
 		repaint();
 
 	}
 
-	public void paint(Graphics g) {
-		for (int i = numdebutdepage*8; i < (numdebutdepage+1)*8; i++) {
+	public void paint(Graphics g ) {
+		for (int i = modele.Constantes.numdebutdepage*8; i < (modele.Constantes.numdebutdepage+1)*8; i++) {
 			if (i <=image.m_listeImage.size()-1) {
-				g.drawImage(imgre[i], startX + (resizedX.get(i) + pas) * (i%4), startY + (resizedY.get(i) + pas)*((i/4)%2), resizedX.get(i), resizedY.get(i), null);
+				g.drawImage(img[i],(pasX+(largeur-(pasX*5))/4) * (i%4)+pasX,((pasY+(pasX+(largeur-(pasX*5))/4))*((i/4)%2)+pasY),(largeur-(pasX*5))/4,(largeur-(pasX*5))/4,null);
 			}
 		}
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowClosing(WindowEvent arg0) {
-		System.exit(0);
-
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
 	
 }

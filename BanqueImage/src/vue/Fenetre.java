@@ -10,7 +10,7 @@ public class Fenetre extends Frame implements WindowListener {
 	public Fenetre(){
 		this.setLayout(new BorderLayout());
 		Afficher_images canvasmilieu=new Afficher_images();
-		this.add(canvasmilieu);
+	
 		Afficher_Fleche canvasbas=new Afficher_Fleche();
 		this.add(canvasbas, BorderLayout.SOUTH);
 		BarreTri canvasG=new BarreTri();
@@ -18,7 +18,7 @@ public class Fenetre extends Frame implements WindowListener {
 		
 		BarreRecherche canvasHaut=new BarreRecherche();
 		this.add(canvasHaut,BorderLayout.NORTH);
-		
+		this.add(canvasmilieu);
 		
 		
 		this.addWindowListener(this);

@@ -11,13 +11,23 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import modele.Biblio;
+
 public class Afficher_Fleche extends Canvas{
 	Image img;
 	Image img_inv;
-	int largeur=(int) modele.Constantes.w*2/3;
+	Biblio image;
+	
+	int largeur=(int) modele.Constantes.w*2/3+(int) modele.Constantes.w*1/10;
 	int hauteur=(int) modele.Constantes.h*1/12;
 	public Afficher_Fleche(){
-		this.setBackground(Color.PINK);
+		try {
+			this.image = new Biblio();
+		} catch (IOException e1) {
+			System.exit(-1);
+		}
+		
+		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(largeur,hauteur));
 		try {
 			img=ImageIO.read(new File("fleche.png")).getScaledInstance(hauteur, hauteur, Image.SCALE_DEFAULT);
@@ -29,8 +39,9 @@ public class Afficher_Fleche extends Canvas{
 	}
 	
 	public void paint(Graphics g) {
-		g.drawImage(img,largeur, 0, hauteur, hauteur, null);
-		g.drawImage(img_inv ,hauteur*2, 0, hauteur, hauteur, null);
+		g.drawImage(img,largeur-hauteur, 0, hauteur, hauteur, null);
+		g.drawImage(img_inv ,(int) modele.Constantes.w*1/10, 0, hauteur, hauteur, null);
+		g.drawString("Page : "+ (modele.Constantes.numdebutdepage+1)+" /  "+ ((image.m_listeImage.size()/8)+1),largeur/2,hauteur/2 );
 	}
 	
 
