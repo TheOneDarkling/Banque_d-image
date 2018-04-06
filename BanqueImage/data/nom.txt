@@ -8,3 +8,7 @@ Personnes
 Sport
 Tigre
 Clown
+Banane
+Lion
+Montagne
+Terre

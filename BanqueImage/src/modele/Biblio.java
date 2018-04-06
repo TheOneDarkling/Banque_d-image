@@ -76,8 +76,6 @@ public class Biblio extends Observable{
 	}
 	
 	
-	
-	
 	/*
 	 *  LE MAIN (POUR LES TEST)
 	 *  ========================

@@ -27,6 +27,8 @@ public class Afficher_images extends Canvas implements Observer{
 	int largeur=(int) modele.Constantes.w*2/3;
 	int pasX = 20;
 	int pasY = 30;
+	boolean estengrand=false;
+	int numimage=0;
 	
 	public Afficher_images() {
 		super();
@@ -59,16 +61,27 @@ public class Afficher_images extends Canvas implements Observer{
 			}
 		}
 		
-
 		repaint();
+			
+
+			
+		
 
 	}
 
 	public void paint(Graphics g ) {
+		if (estengrand){g.drawImage(img[numimage], 0, 0, largeur, hauteur, null);
+			
+		}
+		else{
+			g.clearRect(0, 0, largeur, hauteur);
+			
+		
 		for (int i = modele.Constantes.numdebutdepage*8; i < (modele.Constantes.numdebutdepage+1)*8; i++) {
 			if (i <=image.m_listeImage.size()-1) {
 				g.drawImage(img[i],(pasX+(largeur-(pasX*5))/4) * (i%4)+pasX,((pasY+(pasX+(largeur-(pasX*5))/4))*((i/4)%2)+pasY),(largeur-(pasX*5))/4,(largeur-(pasX*5))/4,null);
 			}
+		}
 		}
 	}
 

@@ -8,3 +8,7 @@ personne+humain+joie+souvenir+visage+femme+homme+bras
 sport+competition+ballon+homme+herbe+humain
 tigre+nature+animal+pelage+herbe+danger+felin
 clown+rouge+homme+rire+humain+visage+peinture+couleur+jaune+personne
+banane+fruit+vert+nature+aliment+jaune+plante
+lion+nature+parc+zoo+animal+danger+herbe+terre+vert+marron
+montagne+lac+eau+glace+arbre+herbe+arbre+neige+ciel+bleu+vert+nature+grand+paysage
+terre+espace+lune+bleu+noir+ciel+atmosphere

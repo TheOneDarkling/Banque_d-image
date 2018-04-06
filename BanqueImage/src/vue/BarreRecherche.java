@@ -2,6 +2,8 @@ package vue;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
 
@@ -12,9 +14,17 @@ public class BarreRecherche extends Panel {
 		this.setPreferredSize(new Dimension(largeur,hauteur));
 		this.setBackground(Color.RED);
 		
-		TextField test = new TextField();
-		test.setColumns(50);
-		this.add(test);
+		TextField tag = new TextField();
+		tag.setColumns(50);
+		tag.setName("tag");
+		
+		Font font = new Font("Arial",Font.BOLD,15);
+		Label lb2= new Label("Recherche par tags");
+		lb2.setFont(font);
+		this.add(lb2);
+		this.add(tag);
+
+		
 		
 	}
 
