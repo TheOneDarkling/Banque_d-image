@@ -10,10 +10,10 @@ import modele.Biblio;
 import modele.ImagePerso;
 
 public class ControleurBarreTri implements ItemListener{
-	Biblio biblio;
+	Biblio b;
 	
-	public ControleurBarreTri() throws IOException{
-		biblio = new Biblio();
+	public ControleurBarreTri(Biblio b){
+		this.b = b;
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class ControleurBarreTri implements ItemListener{
 				case "Couleur":
 					System.out.println(box.getSelectedItem()); break;
 				case "Format":
-					for(ImagePerso img: biblio.m_listeImage){
+					for(ImagePerso img: b.m_listeImage){
 						if(img.m_lien.endsWith(box.getSelectedItem().toString())){System.out.println(img.m_titre);}
 					}
 					break;	

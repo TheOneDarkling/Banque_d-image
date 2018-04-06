@@ -9,17 +9,14 @@ public class ControleurImage implements MouseListener, Observer{
 	
 	
 	//Solution temporaire:
-	int resizedX = 250;
-	int resizedY = 200;
-	//int hauteur = 250;
-	//int largeur = 200;
-	int pas = 50;
-	int startX = 50;
-	int startY = 20;
+	int hauteur =(int) modele.Constantes.h*2/3;
+	int largeur=(int) modele.Constantes.w*2/3;
+	int pasX = 20;
+	int pasY = 30;
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(e.getX()/(startX+resizedX)+(e.getY()/(startY+resizedY))*4);
+		System.out.println(e.getX()/(pasX+(largeur-(pasX*5))/4)+((e.getY()/((pasY+(pasX+(largeur-(pasX*5))/4))))*4));
 	}
 
 	@Override
