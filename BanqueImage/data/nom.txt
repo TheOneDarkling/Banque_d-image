@@ -12,3 +12,5 @@ Banane
 Lion
 Montagne
 Terre
+Chemin
+Zika

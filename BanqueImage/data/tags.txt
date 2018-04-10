@@ -12,3 +12,5 @@ banane+fruit+vert+nature+aliment+jaune+plante
 lion+nature+parc+zoo+animal+danger+herbe+terre+vert+marron
 montagne+lac+eau+glace+arbre+herbe+arbre+neige+ciel+bleu+vert+nature+grand+paysage
 terre+espace+lune+bleu+noir+ciel+atmosphere
+chemin
+zika
