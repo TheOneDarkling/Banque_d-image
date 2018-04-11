@@ -15,7 +15,7 @@ public class BarreTri extends Panel {
 	
 	public BarreTri(){
 	
-		int largeur=(int) modele.Constantes.w*1/10;
+		int largeur=(int) modele.Constantes.w*1/9;
 		int hauteur=(int) modele.Constantes.h*2/3;
 		
 		this.setPreferredSize(new Dimension(largeur,hauteur));
@@ -46,7 +46,7 @@ public class BarreTri extends Panel {
 		lb2.setFont(font);
 		
 		TextField nom = new TextField();
-		nom.setColumns(20);
+		nom.setColumns(15);
 		nom.setFont(fontbarre);
 		
 		nom.setName("nom");

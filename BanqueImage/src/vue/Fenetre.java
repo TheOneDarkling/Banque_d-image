@@ -12,7 +12,7 @@ public class Fenetre extends Frame implements WindowListener {
 		Afficher_images canvasmilieu=new Afficher_images();
 	
 		Afficher_Fleche canvasbas=new Afficher_Fleche();
-		this.add(canvasbas, BorderLayout.SOUTH);
+		
 		BarreTri canvasG=new BarreTri();
 		this.add(canvasG,BorderLayout.WEST);
 		
@@ -20,7 +20,14 @@ public class Fenetre extends Frame implements WindowListener {
 		this.add(canvasHaut,BorderLayout.NORTH);
 		this.add(canvasmilieu);
 		
+		Note test= new Note();
 		
+		if(Afficher_images.estengrand){
+			this.add(test,BorderLayout.SOUTH);
+		}
+		else{
+			this.add(canvasbas, BorderLayout.SOUTH);
+		}
 		this.addWindowListener(this);
 		this.pack();
 		this.setVisible(true);
