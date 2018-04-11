@@ -27,7 +27,7 @@ public class Afficher_images extends Canvas implements Observer{
 	int largeur=(int) modele.Constantes.w*2/3;
 	int pasX = 20;
 	int pasY = 30;
-	public static boolean estengrand=false;
+	public static boolean estengrand=true;
 	int numimage=0;
 	
 	public Afficher_images() {
