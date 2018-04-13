@@ -12,9 +12,8 @@ import modele.Biblio;
 public class Fenetre extends Frame implements WindowListener {
 
 	public Fenetre() {
-		Biblio b;
 		try {
-			b = new Biblio();
+			Biblio b = new Biblio();
 			ControleurAffichage ctrl = new ControleurAffichage(b);
 			
 			this.setLayout(new BorderLayout());
@@ -30,12 +29,17 @@ public class Fenetre extends Frame implements WindowListener {
 			b.addObserver(images);
 			this.add(images);
 
-			Note flechesNotes = new Note(b);
-			flechesNotes.noteFleche();
-			b.addObserver(flechesNotes);
 			
+			Afficher_Fleche fleches = new Afficher_Fleche(b);
+			fleches.addMouseListener(ctrl);
+			b.addObserver(fleches);
 			
-			this.add(flechesNotes, BorderLayout.SOUTH);
+			Note notes = new Note(b);
+			
+			BasDePage bdp = new BasDePage(fleches, notes);
+			b.addObserver(bdp);
+			
+			this.add(bdp, BorderLayout.SOUTH);
 			
 
 			this.addWindowListener(this);
@@ -43,7 +47,6 @@ public class Fenetre extends Frame implements WindowListener {
 			this.setVisible(true);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
