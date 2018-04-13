@@ -27,8 +27,6 @@ public class Afficher_images extends Canvas implements Observer{
 	int largeur=(int) modele.Constantes.w*2/3;
 	int pasX = 20;
 	int pasY = 30;
-	public static boolean estengrand=false;
-	int numimage=5;
 	
 	public Afficher_images(Biblio b) {
 		super();
@@ -67,7 +65,7 @@ public class Afficher_images extends Canvas implements Observer{
 	}
 
 	public void paint(Graphics g ) {
-		if (estengrand){g.drawImage(img[numimage], 0, 0, largeur, hauteur, null);
+		if (modele.Constantes.estengrand){g.drawImage(img[modele.Constantes.numimage], 0, 0, largeur, hauteur, null);
 			
 		}
 		else{

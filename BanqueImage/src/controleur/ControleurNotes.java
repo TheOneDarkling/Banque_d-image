@@ -10,5 +10,4 @@ public class ControleurNotes implements ItemListener{
 		System.out.println(event.getItem().toString().length());
 		
 	}
-
 }

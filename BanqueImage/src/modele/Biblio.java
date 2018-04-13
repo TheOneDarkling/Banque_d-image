@@ -77,14 +77,24 @@ public class Biblio extends Observable{
 	
 	/* changement de page */
 	
-	public void setNumImage(int page){
+	public void setNumPage(int page){
 		this.setChanged();
 		this.notifyObservers();
 		modele.Constantes.numdebutdepage = page;
 		
 	}
 
+	public void toggleImage(){
+		this.setChanged();
+		this.notifyObservers();
+		modele.Constantes.estengrand = !modele.Constantes.estengrand;
+	}
 	
+	public void setNumImage(int num){
+		this.setChanged();
+		this.notifyObservers();
+		modele.Constantes.numimage = num;
+	}
 	
 	/*
 	 *  LE MAIN (POUR LES TEST)

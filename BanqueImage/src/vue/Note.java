@@ -19,7 +19,7 @@ public class Note extends JPanel{
 	public Note(Biblio b) {
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(largeur, hauteur));
-		if(Afficher_images.estengrand){
+		if(modele.Constantes.estengrand){
 			CheckboxGroup cg = new CheckboxGroup();
 			Label note = new Label("Saisir une Note sur 5 :");
 			Font f = new Font("Arial",Font.BOLD,18);
