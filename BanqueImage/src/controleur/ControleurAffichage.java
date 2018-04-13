@@ -25,9 +25,9 @@ public ControleurAffichage(Biblio b){
 			case "images":
 				int indexImage = e.getX()/(pasX+(largeur-(pasX*5))/4)+((e.getY()/((pasY+(pasX+(largeur-(pasX*5))/4))))*4);
 				indexImage = (indexImage>7)? indexImage-4: indexImage;
-				
 				b.toggleImage();
 				b.setNumImage(indexImage + 8*modele.Constantes.numdebutdepage);
+				
 				break;
 			case "fleches":
 				if(e.getX() > zoneFleches.getWidth()/2 && modele.Constantes.numdebutdepage < (b.m_listeImage.size()-1) / 8) {

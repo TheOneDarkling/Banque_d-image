@@ -78,22 +78,24 @@ public class Biblio extends Observable{
 	/* changement de page */
 	
 	public void setNumPage(int page){
+		modele.Constantes.numdebutdepage = page;
 		this.setChanged();
 		this.notifyObservers();
-		modele.Constantes.numdebutdepage = page;
 		
 	}
 
 	public void toggleImage(){
+		modele.Constantes.estengrand = !modele.Constantes.estengrand;
 		this.setChanged();
 		this.notifyObservers();
-		modele.Constantes.estengrand = !modele.Constantes.estengrand;
+		
 	}
 	
 	public void setNumImage(int num){
+		modele.Constantes.numimage = num;
 		this.setChanged();
 		this.notifyObservers();
-		modele.Constantes.numimage = num;
+		
 	}
 	
 	/*

@@ -6,20 +6,33 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Label;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JPanel;
 import controleur.ControleurAffichage;
 import modele.Biblio;
 
-public class Note extends JPanel{
+public class Note extends JPanel implements Observer{
 	Checkbox[] etoiles = new Checkbox[5];
 	int largeur = (int) modele.Constantes.w * 2 / 3 + (int) modele.Constantes.w * 1 / 10;
 	int hauteur = (int) modele.Constantes.h * 1 / 12;
+	Biblio b;
 
 	public static String[] libelles = { "*", "**", "***", "****", "*****" };
 	public Note(Biblio b) {
+		this.b=b;
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(largeur, hauteur));
+		
+		
+			
+		}
+	
+	public void noteFleche(){
 		if(modele.Constantes.estengrand){
+			//TODO afficher l'un, masque l'autre
+			this.removeAll();
 			CheckboxGroup cg = new CheckboxGroup();
 			Label note = new Label("Saisir une Note sur 5 :");
 			Font f = new Font("Arial",Font.BOLD,18);
@@ -33,32 +46,27 @@ public class Note extends JPanel{
 				this.etoiles[i].setForeground(Color.yellow);
 				this.add(this.etoiles[i]);
 			}
+			this.invalidate();
+			this.revalidate();
 		}
 		else{
-			/*
-			JPanel droit=new JPanel();
-			ImageIcon test =new ImageIcon("fleche.png");
-			JLabel img = new JLabel(test);
-			droit.add(img).setPreferredSize(new Dimension(hauteur,hauteur));;
-			//JPanel gauche=new JPanel((LayoutManager) new ImageIcon("fleche_inv.png"));
-			this.add(droit);
-			*/
-	
-			
+			//Faire l'inverse
+			this.removeAll();
 			Afficher_Fleche fleche = new Afficher_Fleche(b);
 			b.addObserver(fleche);
 			fleche.addMouseListener(new ControleurAffichage(b));
 			this.add(fleche);
+			this.invalidate();
+			this.revalidate();
 }
+	}
 			
-		}
-			
+	
+
+	@Override
+	public void update(Observable o, Object arg) {
+		noteFleche();
 		
-
-
-	public static void main(String[] args) {
-		
-
 	}
 
 
