@@ -16,25 +16,21 @@ public class Fenetre extends Frame implements WindowListener {
 		try {
 			b = new Biblio();
 			this.setLayout(new BorderLayout());
-			Afficher_images canvasmilieu = new Afficher_images(b);
-			Afficher_Fleche canvasbas = new Afficher_Fleche(b);
-
-			b.addObserver(canvasmilieu);
-			b.addObserver(canvasbas);
 			
-			canvasbas.addMouseListener(new ControleurAffichage(b));
+			BarreTri bTri = new BarreTri();
+			this.add(bTri, BorderLayout.WEST);
+
+			BarreRecherche bRecherche = new BarreRecherche();
+			this.add(bRecherche, BorderLayout.NORTH);
 			
-			BarreTri canvasG = new BarreTri();
-			this.add(canvasG, BorderLayout.WEST);
+			Afficher_images images = new Afficher_images(b);
+			b.addObserver(images);
+			this.add(images);
 
-			BarreRecherche canvasHaut = new BarreRecherche();
-			this.add(canvasHaut, BorderLayout.NORTH);
-			this.add(canvasmilieu);
+			Note flechesNotes = new Note(b);
 
-			/*Note test = new Note(b);
-
-			this.add(test, BorderLayout.SOUTH);*/
-			this.add(canvasbas, BorderLayout.SOUTH);
+			this.add(flechesNotes, BorderLayout.SOUTH);
+			
 
 			this.addWindowListener(this);
 			this.pack();

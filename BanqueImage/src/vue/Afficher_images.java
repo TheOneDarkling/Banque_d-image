@@ -28,7 +28,7 @@ public class Afficher_images extends Canvas implements Observer{
 	int pasX = 20;
 	int pasY = 30;
 	public static boolean estengrand=false;
-	int numimage=0;
+	int numimage=5;
 	
 	public Afficher_images(Biblio b) {
 		super();
