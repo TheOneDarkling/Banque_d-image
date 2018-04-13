@@ -1,28 +1,16 @@
 package vue;
 
-import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Label;
-import java.awt.LayoutManager;
-import java.awt.TextField;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import controleur.ControleurAffichage;
 import modele.Biblio;
 
-public class Note extends JPanel {
+public class Note extends JPanel{
 	Checkbox[] etoiles = new Checkbox[5];
 	int largeur = (int) modele.Constantes.w * 2 / 3 + (int) modele.Constantes.w * 1 / 10;
 	int hauteur = (int) modele.Constantes.h * 1 / 12;
@@ -55,8 +43,11 @@ public class Note extends JPanel {
 			//JPanel gauche=new JPanel((LayoutManager) new ImageIcon("fleche_inv.png"));
 			this.add(droit);
 			*/
+	
 			
 			Afficher_Fleche canvasbas = new Afficher_Fleche(b);
+			b.addObserver(canvasbas);
+			canvasbas.addMouseListener(new ControleurAffichage(b));
 			this.add(canvasbas);
 }
 			
@@ -66,7 +57,13 @@ public class Note extends JPanel {
 
 
 	public static void main(String[] args) {
+		
 
 	}
+
+
+
+
+
 
 }
