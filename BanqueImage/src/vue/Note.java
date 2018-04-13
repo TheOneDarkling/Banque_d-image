@@ -45,10 +45,10 @@ public class Note extends JPanel{
 			*/
 	
 			
-			Afficher_Fleche canvasbas = new Afficher_Fleche(b);
-			b.addObserver(canvasbas);
-			canvasbas.addMouseListener(new ControleurAffichage(b));
-			this.add(canvasbas);
+			Afficher_Fleche fleche = new Afficher_Fleche(b);
+			b.addObserver(fleche);
+			fleche.addMouseListener(new ControleurAffichage(b));
+			this.add(fleche);
 }
 			
 		}

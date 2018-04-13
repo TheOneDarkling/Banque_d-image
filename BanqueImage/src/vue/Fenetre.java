@@ -5,8 +5,6 @@ import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-
-import controleur.ControleurAffichage;
 import modele.Biblio;
 
 public class Fenetre extends Frame implements WindowListener {

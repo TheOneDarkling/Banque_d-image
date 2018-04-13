@@ -3,9 +3,6 @@ package controleur;
 import java.awt.Canvas;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Observable;
-import java.util.Observer;
-
 import modele.Biblio;
 
 public class ControleurAffichage implements MouseListener{
