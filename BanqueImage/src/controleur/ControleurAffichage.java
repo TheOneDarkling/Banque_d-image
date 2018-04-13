@@ -6,25 +6,32 @@ import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ControleurAffichage implements MouseListener, Observer{
+import modele.Biblio;
 
+public class ControleurAffichage implements MouseListener{
+	Biblio b;
 	int hauteur =(int) modele.Constantes.h*2/3;
 	int largeur=(int) modele.Constantes.w*2/3;
 	int pasX = 20;
 	int pasY = 30;
 	
+public ControleurAffichage(Biblio b){
+	this.b = b;
+}
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Canvas zoneFleches = (Canvas)e.getSource();
 		switch(zoneFleches.getName()) {
-			case "canvas0":
+			case "images":
 				System.out.println(e.getX()/(pasX+(largeur-(pasX*5))/4)+((e.getY()/((pasY+(pasX+(largeur-(pasX*5))/4))))*4));
 				break;
-			case "canvas1":
-				if(e.getX() > zoneFleches.getWidth()/2) {
-					System.out.println("Page suivante");
-				}else {
-					System.out.println("Page précédente");
+			case "fleches":
+				if(e.getX() > zoneFleches.getWidth()/2 && modele.Constantes.numdebutdepage < (b.m_listeImage.size()-1) / 8) {
+					b.setNumImage(modele.Constantes.numdebutdepage+1);
+				}else if(e.getX() <= zoneFleches.getWidth()/2 && modele.Constantes.numdebutdepage > 0){
+					b.setNumImage(modele.Constantes.numdebutdepage-1);
 				}
 				break;
 				
@@ -56,10 +63,5 @@ public class ControleurAffichage implements MouseListener, Observer{
 		
 	}
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
 		
-	}
-
 }

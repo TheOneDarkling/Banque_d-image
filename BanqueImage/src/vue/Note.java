@@ -20,13 +20,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import modele.Biblio;
+
 public class Note extends JPanel {
 	Checkbox[] etoiles = new Checkbox[5];
 	int largeur = (int) modele.Constantes.w * 2 / 3 + (int) modele.Constantes.w * 1 / 10;
 	int hauteur = (int) modele.Constantes.h * 1 / 12;
 
 	public static String[] libelles = { "*", "**", "***", "****", "*****" };
-	public Note() {
+	public Note(Biblio b) {
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(largeur, hauteur));
 		if(Afficher_images.estengrand){
@@ -53,7 +55,8 @@ public class Note extends JPanel {
 			//JPanel gauche=new JPanel((LayoutManager) new ImageIcon("fleche_inv.png"));
 			this.add(droit);
 			*/
-			Afficher_Fleche canvasbas = new Afficher_Fleche();
+			
+			Afficher_Fleche canvasbas = new Afficher_Fleche(b);
 			this.add(canvasbas);
 }
 			

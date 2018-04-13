@@ -4,30 +4,47 @@ import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
+
+import controleur.ControleurAffichage;
+import modele.Biblio;
 
 public class Fenetre extends Frame implements WindowListener {
 
 	public Fenetre() {
-		this.setLayout(new BorderLayout());
-		Afficher_images canvasmilieu = new Afficher_images();
+		Biblio b;
+		try {
+			b = new Biblio();
+			this.setLayout(new BorderLayout());
+			Afficher_images canvasmilieu = new Afficher_images(b);
+			Afficher_Fleche canvasbas = new Afficher_Fleche(b);
 
-		Afficher_Fleche canvasbas = new Afficher_Fleche();
+			b.addObserver(canvasmilieu);
+			b.addObserver(canvasbas);
+			
+			canvasbas.addMouseListener(new ControleurAffichage(b));
+			
+			BarreTri canvasG = new BarreTri();
+			this.add(canvasG, BorderLayout.WEST);
 
-		BarreTri canvasG = new BarreTri();
-		this.add(canvasG, BorderLayout.WEST);
+			BarreRecherche canvasHaut = new BarreRecherche();
+			this.add(canvasHaut, BorderLayout.NORTH);
+			this.add(canvasmilieu);
 
-		BarreRecherche canvasHaut = new BarreRecherche();
-		this.add(canvasHaut, BorderLayout.NORTH);
-		this.add(canvasmilieu);
+			/*Note test = new Note(b);
 
-		Note test = new Note();
+			this.add(test, BorderLayout.SOUTH);*/
+			this.add(canvasbas, BorderLayout.SOUTH);
 
-		this.add(test, BorderLayout.SOUTH);
-		//this.add(canvasbas, BorderLayout.SOUTH);
+			this.addWindowListener(this);
+			this.pack();
+			this.setVisible(true);
 
-		this.addWindowListener(this);
-		this.pack();
-		this.setVisible(true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void main(String[] args) {

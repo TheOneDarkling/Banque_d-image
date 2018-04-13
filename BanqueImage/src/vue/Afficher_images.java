@@ -27,19 +27,16 @@ public class Afficher_images extends Canvas implements Observer{
 	int largeur=(int) modele.Constantes.w*2/3;
 	int pasX = 20;
 	int pasY = 30;
-	public static boolean estengrand=true;
+	public static boolean estengrand=false;
 	int numimage=0;
 	
-	public Afficher_images() {
+	public Afficher_images(Biblio b) {
 		super();
+		this.image=b;
+		this.setName("images");
 		this.setBackground(Color.green);
 		this.setPreferredSize(new Dimension(largeur,hauteur));
 	
-		try {
-			this.image = new Biblio();
-		} catch (IOException e1) {
-			System.exit(-1);
-		}
 		this.img = new Image[image.m_listeImage.size()];
 		this.imgre = new Image[image.m_listeImage.size()];
 	
@@ -87,7 +84,7 @@ public class Afficher_images extends Canvas implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+		repaint();
 		
 	}
 	
