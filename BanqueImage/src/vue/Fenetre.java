@@ -13,6 +13,8 @@ public class Fenetre extends Frame implements WindowListener {
 		Biblio b;
 		try {
 			b = new Biblio();
+			ControleurAffichage ctrl = new ControleurAffichage(b);
+			
 			this.setLayout(new BorderLayout());
 			
 			BarreTri bTri = new BarreTri();
@@ -22,6 +24,7 @@ public class Fenetre extends Frame implements WindowListener {
 			this.add(bRecherche, BorderLayout.NORTH);
 			
 			Afficher_images images = new Afficher_images(b);
+			images.addMouseListener(ctrl);
 			b.addObserver(images);
 			this.add(images);
 

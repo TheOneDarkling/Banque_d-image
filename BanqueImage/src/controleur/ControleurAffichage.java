@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import modele.Biblio;
+import vue.Afficher_images;
 
 public class ControleurAffichage implements MouseListener{
 	Biblio b;
@@ -22,17 +23,22 @@ public ControleurAffichage(Biblio b){
 		Canvas zoneFleches = (Canvas)e.getSource();
 		switch(zoneFleches.getName()) {
 			case "images":
-				System.out.println(e.getX()/(pasX+(largeur-(pasX*5))/4)+((e.getY()/((pasY+(pasX+(largeur-(pasX*5))/4))))*4));
+				int indexImage = e.getX()/(pasX+(largeur-(pasX*5))/4)+((e.getY()/((pasY+(pasX+(largeur-(pasX*5))/4))))*4);
+				indexImage = (indexImage>7)? indexImage-4: indexImage;
+				
+				b.toggleImage();
+				b.setNumImage(indexImage + 8*modele.Constantes.numdebutdepage);
 				break;
 			case "fleches":
 				if(e.getX() > zoneFleches.getWidth()/2 && modele.Constantes.numdebutdepage < (b.m_listeImage.size()-1) / 8) {
-					b.setNumImage(modele.Constantes.numdebutdepage+1);
+					b.setNumPage(modele.Constantes.numdebutdepage+1);
 				}else if(e.getX() <= zoneFleches.getWidth()/2 && modele.Constantes.numdebutdepage > 0){
-					b.setNumImage(modele.Constantes.numdebutdepage-1);
+					b.setNumPage(modele.Constantes.numdebutdepage-1);
 				}
 				break;
 				
 		}
+		
 		
 	}
 

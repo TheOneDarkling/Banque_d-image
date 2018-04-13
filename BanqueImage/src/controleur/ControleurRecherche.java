@@ -5,7 +5,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.TextEvent;
 import java.awt.event.TextListener;
-import java.io.IOException;
 import java.util.Arrays;
 
 import javax.swing.JComboBox;
