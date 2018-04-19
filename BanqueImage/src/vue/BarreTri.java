@@ -10,10 +10,12 @@ import java.awt.TextField;
 
 import javax.swing.JComboBox;
 
+import controleur.ControleurRecherche;
+
 public class BarreTri extends Panel {
 	
 	
-	public BarreTri(){
+	public BarreTri(ControleurRecherche ctrlRech){
 	
 		int largeur=(int) modele.Constantes.w*1/9;
 		int hauteur=(int) modele.Constantes.h*2/3;
@@ -50,10 +52,16 @@ public class BarreTri extends Panel {
 		nom.setFont(fontbarre);
 		
 		nom.setName("nom");
-		Taille.setName("Taille");
-		Couleur.setName("Couleur");
-		Format.setName("Format");
+		nom.addTextListener(ctrlRech);
 		
+		Taille.setName("Taille");
+		Taille.addItemListener(ctrlRech);
+		
+		Couleur.setName("Couleur");
+		Couleur.addItemListener(ctrlRech);
+		
+		Format.setName("Format");
+		Format.addItemListener(ctrlRech);
 		
 		Taille.setFont(fontbarre);
 		Couleur.setFont(fontbarre);

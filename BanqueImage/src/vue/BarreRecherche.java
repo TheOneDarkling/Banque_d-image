@@ -7,8 +7,10 @@ import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
 
+import controleur.ControleurRecherche;
+
 public class BarreRecherche extends Panel {
-	public BarreRecherche(){
+	public BarreRecherche(ControleurRecherche ctrlRech){
 		int largeur=(int) modele.Constantes.w*2/3+(int) modele.Constantes.w*1/10;;
 		int hauteur=(int) modele.Constantes.h*1/12;
 		this.setPreferredSize(new Dimension(largeur,hauteur));
@@ -17,6 +19,7 @@ public class BarreRecherche extends Panel {
 		TextField tag = new TextField();
 		tag.setColumns(50);
 		tag.setName("tag");
+		tag.addTextListener(ctrlRech);
 		
 		Font font = new Font("Arial",Font.BOLD,15);
 		Label lb2= new Label("Recherche par tags");

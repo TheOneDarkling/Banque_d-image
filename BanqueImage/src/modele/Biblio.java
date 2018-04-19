@@ -69,6 +69,9 @@ public class Biblio extends Observable{
 			
 		}
 		
+		/* initialisation liste de sélection d'images */
+		m_listeImageSelection = new ArrayList<ImagePerso>(m_listeImage);
+		
 		/* FERMETURE DES FLUX */
 		
 		brFormat.close();
