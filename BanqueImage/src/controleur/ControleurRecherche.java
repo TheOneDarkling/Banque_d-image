@@ -27,11 +27,11 @@ public class ControleurRecherche implements TextListener, ItemListener{
 		this.rechNom = "" ;
 	}
 	
-	public void modifyListeSelection(boolean condition, ImagePerso img) {
-		if(condition && !b.m_listeImageSelection.contains(img)) {
-			b.m_listeImageSelection.add(img);
-		}else if(!condition && b.m_listeImageSelection.contains(img)) {
-			b.m_listeImageSelection.remove(img);
+	public void modifyListeSelection(boolean condition, int imgID) {
+		if(condition && !b.m_listeImageSelection.contains(imgID)) {
+			b.m_listeImageSelection.add((Integer)imgID);
+		}else if(!condition && b.m_listeImageSelection.contains(imgID)) {
+			b.m_listeImageSelection.remove((Integer)imgID);
 		}
 	}
 	@Override
@@ -86,20 +86,24 @@ public class ControleurRecherche implements TextListener, ItemListener{
 				}
 				
 				if(!this.rechNom.isEmpty()) {
-					this.modifyListeSelection(tagInImage && img.m_titre.toUpperCase().startsWith(this.rechNom), img);
+					this.modifyListeSelection(tagInImage && img.m_titre.toUpperCase().startsWith(this.rechNom), i);
 				}else{
-					this.modifyListeSelection(tagInImage, img);
+					this.modifyListeSelection(tagInImage, i);
 				}
 			}
 		}else if(!this.rechNom.isEmpty()) {
 			for(i=0; i<b.m_listeImage.size(); i++) {
 				img = b.m_listeImage.get(i);
-				this.modifyListeSelection(img.m_titre.toUpperCase().startsWith(this.rechNom), img);
+				this.modifyListeSelection(img.m_titre.toUpperCase().startsWith(this.rechNom), i);
 			}
 		}else {
-			b.m_listeImageSelection = new ArrayList<ImagePerso>(b.m_listeImage);
+			b.m_listeImageSelection.clear();
+			for(i=0; i<b.m_nbImages; i++) {
+				b.m_listeImageSelection.add(i);
+			}
+			
 		}
-		for(ImagePerso im: b.m_listeImageSelection) {System.out.println(im.m_titre);}
+		for(int id: b.m_listeImageSelection) {System.out.println(b.m_listeImage.get(i).m_titre);}
 		System.out.println("----------------------------------");
 	}
 
