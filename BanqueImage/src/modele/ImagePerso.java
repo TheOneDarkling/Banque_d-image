@@ -27,7 +27,11 @@ public class ImagePerso {
 	  m_format = format;
 	  m_lien = lien;
 	  
-	  chargerTaille();
+	  //chargerTaille();
+	  m_largeur = 0;
+	  m_hauteur = 0;
+	  
+	  m_byte = 0;
 	  
 	  m_note = Integer.parseInt(note);
   }
