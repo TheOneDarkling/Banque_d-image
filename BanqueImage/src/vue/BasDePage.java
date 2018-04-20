@@ -1,5 +1,6 @@
 package vue;
 
+import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,6 +13,7 @@ public class BasDePage extends JPanel implements Observer{
 	public BasDePage(Afficher_Fleche fleches, Note notes) {
 		this.fleches = fleches;
 		this.notes = notes;
+		this.setBackground(Color.white);
 		
 		this.add(fleches);
 	}
