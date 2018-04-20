@@ -54,7 +54,7 @@ public class Biblio extends Observable{
 		BufferedReader brNote = new BufferedReader(new FileReader(m_fichierNote));
 		String ligneNote;
 
-		
+
 		/* REMPLISSAGE DE LA LISTE D IMAGE*/
 		
 		for(int i=0; i<m_nbImages;i++)
@@ -102,6 +102,11 @@ public class Biblio extends Observable{
 		modele.Constantes.numimage = num;
 		this.setChanged();
 		this.notifyObservers();
+		
+	}
+	
+	public void addTag(int idImage, String tag)
+	{
 		
 	}
 	
