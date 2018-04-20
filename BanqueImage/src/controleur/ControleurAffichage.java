@@ -47,7 +47,7 @@ public ControleurAffichage(Biblio b){
 				}else if(modele.Constantes.estengrand) {b.toggleImage();}
 				break;
 			case "fleches":
-				if(xCoord > zoneFleches.getWidth()/2 && modele.Constantes.numdebutdepage < (b.m_listeImage.size()-1) / 8) {
+				if(xCoord > zoneFleches.getWidth()/2 && modele.Constantes.numdebutdepage < (b.m_listeImageSelection.size()-1) / 8) {
 					b.setNumPage(modele.Constantes.numdebutdepage+1);
 				}else if(xCoord <= zoneFleches.getWidth()/2 && modele.Constantes.numdebutdepage > 0){
 					b.setNumPage(modele.Constantes.numdebutdepage-1);

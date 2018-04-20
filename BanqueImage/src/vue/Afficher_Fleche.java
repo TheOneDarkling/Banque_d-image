@@ -41,7 +41,7 @@ public class Afficher_Fleche extends Canvas implements Observer  {
 		g.drawImage(img, largeur - hauteur, 0, hauteur, hauteur, null);
 		g.drawImage(img_inv, (int) modele.Constantes.w * 1 / 10, 0, hauteur, hauteur, null);
 		g.drawString(
-				"Page : " + (modele.Constantes.numdebutdepage + 1) + " /  " + (((image.m_listeImage.size()-1) / 8) + 1),
+				"Page : " + (modele.Constantes.numdebutdepage + 1) + " /  " + (((image.m_listeImageSelection.size()-1) / 8) + 1),
 				largeur / 2, hauteur / 2);
 	}
 
