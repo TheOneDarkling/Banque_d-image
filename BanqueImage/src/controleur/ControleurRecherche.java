@@ -103,7 +103,7 @@ public class ControleurRecherche implements TextListener, ItemListener{
 			}
 			
 		}
-		for(int id: b.m_listeImageSelection) {System.out.println(b.m_listeImage.get(i).m_titre);}
+		for(int id: b.m_listeImageSelection) {System.out.println(b.m_listeImage.get(id).m_titre);}
 		System.out.println("----------------------------------");
 	}
 
