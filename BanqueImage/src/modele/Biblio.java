@@ -26,7 +26,7 @@ public class Biblio extends Observable{
 	
 	/* POUR LA SELECTION */
 	
-	public ArrayList<ImagePerso> m_listeImageSelection= new ArrayList();
+	public ArrayList<Integer> m_listeImageSelection= new ArrayList();
 	
 	
 	
@@ -67,15 +67,19 @@ public class Biblio extends Observable{
 			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+".jpg", ligneNote)));
 			m_listeImage.get(i).associerLesTags(ligneTags);
 			
+			/* initialisation liste de sélection d'images */
+			m_listeImageSelection.add(i);
 		}
 		
-		/* initialisation liste de sélection d'images */
-		m_listeImageSelection = new ArrayList<ImagePerso>(m_listeImage);
+		System.out.println(m_listeImageSelection.size() + " images selectionées");
+		
 		
 		/* FERMETURE DES FLUX */
 		
 		brFormat.close();
 		brNom.close();
+		brTags.close();
+		brNote.close();
 	}
 	
 	/* changement de page */
