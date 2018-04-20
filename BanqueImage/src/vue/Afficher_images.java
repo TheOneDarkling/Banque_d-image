@@ -32,12 +32,9 @@ public class Afficher_images extends Canvas implements Observer{
 		this.setPreferredSize(new Dimension(largeur,hauteur));
 	
 		this.img = new Image[image.m_listeImage.size()];
-		this.imgre = new Image[image.m_listeImage.size()];
 	
 		
-		
-		
-		for (int i = 0; i < image.m_listeImage.size(); i++) {
+		for (int i = 0; i < 8; i++) {
 
 			try {
 
@@ -59,6 +56,25 @@ public class Afficher_images extends Canvas implements Observer{
 		
 
 	}
+	public void recharger(){
+		for (int i = modele.Constantes.numdebutdepage*8; i < (modele.Constantes.numdebutdepage+1)*8; i++) {
+			if (i <=image.m_listeImage.size()-1) {
+				if (img[i]==null){
+				try {
+					img[i] = ImageIO.read(new File(image.m_listeImage.get(i).m_lien));
+					
+				
+			
+					
+					
+				} catch (IOException e) {
+					throw new RuntimeException("L'image " + image.m_listeImage.get(i) + " est introuvable");
+				}
+				}
+			}
+		}
+		
+	}
 
 	public void paint(Graphics g ) {
 		if (modele.Constantes.estengrand){g.drawImage(img[modele.Constantes.numimage], 0, 0, largeur, hauteur, null);
@@ -67,11 +83,11 @@ public class Afficher_images extends Canvas implements Observer{
 		else{
 			g.clearRect(0, 0, largeur, hauteur);
 			
-		
+
 		for (int i = modele.Constantes.numdebutdepage*8; i < (modele.Constantes.numdebutdepage+1)*8; i++) {
 			if (i <=image.m_listeImage.size()-1) {
 				g.drawImage(img[i],(pasX+(largeur-(pasX*5))/4) * (i%4)+pasX,((pasY+(pasX+(largeur-(pasX*5))/4))*((i/4)%2)+pasY),(largeur-(pasX*5))/4,(largeur-(pasX*5))/4,null);
-				Font font = new Font("Arial",Font.BOLD,13);
+				Font font = new Font("Arial",Font.BOLD,15);
 				g.setFont(font);
 				g.drawString(image.m_listeImage.get(i).m_titre, (pasX+(largeur-(pasX*5))/4) * (i%4)+(largeur-(pasX*5))/8, ((pasY+(pasX+(largeur-(pasX*5))/4))*((i/4)%2)+pasY)-10);
 				
@@ -82,6 +98,7 @@ public class Afficher_images extends Canvas implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		recharger();
 		repaint();
 		
 	}
