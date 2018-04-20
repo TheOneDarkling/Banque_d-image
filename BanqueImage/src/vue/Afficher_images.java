@@ -3,6 +3,7 @@ package vue;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -70,6 +71,10 @@ public class Afficher_images extends Canvas implements Observer{
 		for (int i = modele.Constantes.numdebutdepage*8; i < (modele.Constantes.numdebutdepage+1)*8; i++) {
 			if (i <=image.m_listeImage.size()-1) {
 				g.drawImage(img[i],(pasX+(largeur-(pasX*5))/4) * (i%4)+pasX,((pasY+(pasX+(largeur-(pasX*5))/4))*((i/4)%2)+pasY),(largeur-(pasX*5))/4,(largeur-(pasX*5))/4,null);
+				Font font = new Font("Arial",Font.BOLD,13);
+				g.setFont(font);
+				g.drawString(image.m_listeImage.get(i).m_titre, (pasX+(largeur-(pasX*5))/4) * (i%4)+(largeur-(pasX*5))/8, ((pasY+(pasX+(largeur-(pasX*5))/4))*((i/4)%2)+pasY)-10);
+				
 			}
 		}
 		}
