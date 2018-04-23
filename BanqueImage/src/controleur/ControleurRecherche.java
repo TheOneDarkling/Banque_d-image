@@ -5,7 +5,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.TextEvent;
 import java.awt.event.TextListener;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -27,11 +26,11 @@ public class ControleurRecherche implements TextListener, ItemListener{
 		this.rechNom = "" ;
 	}
 	
-	public void modifyListeSelection(boolean condition, int imgID) {
+	public void modifyListeSelection(boolean condition, Integer imgID) {
 		if(condition && !b.m_listeImageSelection.contains(imgID)) {
-			b.m_listeImageSelection.add((Integer)imgID);
+			b.addImgIndex(imgID);
 		}else if(!condition && b.m_listeImageSelection.contains(imgID)) {
-			b.m_listeImageSelection.remove((Integer)imgID);
+			b.removeImgIndex(imgID);
 		}
 	}
 	@Override
@@ -97,14 +96,10 @@ public class ControleurRecherche implements TextListener, ItemListener{
 				this.modifyListeSelection(img.m_titre.toUpperCase().startsWith(this.rechNom), i);
 			}
 		}else {
-			b.m_listeImageSelection.clear();
-			for(i=0; i<b.m_nbImages; i++) {
-				b.m_listeImageSelection.add(i);
-			}
-			
+			b.resetListeSelection();			
 		}
-		for(int id: b.m_listeImageSelection) {System.out.println(b.m_listeImage.get(id).m_titre);}
-		System.out.println("----------------------------------");
+		/*for(int id: b.m_listeImageSelection) {System.out.println(b.m_listeImage.get(id).m_titre);}
+		System.out.println("----------------------------------");*/
 	}
 
 	@Override
@@ -117,6 +112,12 @@ public class ControleurRecherche implements TextListener, ItemListener{
 					String[] imgDims = event.getItem().toString().split(" x ");
 					int imgDimX = Integer.parseInt(imgDims[0]);
 					int imgDimY = Integer.parseInt(imgDims[1]);
+					/*for(int i=0; i<b.m_listeImageSelection.size(); i++) {
+						ImagePerso img = b.m_listeImageSelection.get(i);
+						if(img.m_largeur > imgDimX && img.m_hauteur > imgDimY) {
+							System.out.println(img.m_titre);
+						}
+					}*/
 					System.out.println(imgDimX+" "+imgDimY);
 					break;
 				case "Couleur":

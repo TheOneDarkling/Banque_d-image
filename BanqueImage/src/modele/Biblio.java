@@ -110,6 +110,28 @@ public class Biblio extends Observable{
 		
 	}
 	
+	/* Ajout/Enlèvement/Réinitialisation d'images de la liste de sélection */
+	public void addImgIndex(Integer i) {
+		this.m_listeImageSelection.add(i);
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void removeImgIndex(Integer i) {
+		this.m_listeImageSelection.remove(i);
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void resetListeSelection() {
+		this.m_listeImageSelection.clear();
+		for(int i=0; i<this.m_nbImages; i++) {
+			this.m_listeImageSelection.add(i);
+		}
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	/*
 	 *  LE MAIN (POUR LES TEST)
 	 *  ========================
