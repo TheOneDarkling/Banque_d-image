@@ -74,6 +74,7 @@ public class Afficher_images extends Canvas implements Observer{
 				}
 				}
 			}
+		repaint();
 		}
 		
 	
@@ -101,7 +102,6 @@ public class Afficher_images extends Canvas implements Observer{
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		recharger();
-		repaint();
 		
 	}
 	
