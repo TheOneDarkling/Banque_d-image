@@ -71,7 +71,7 @@ public class Biblio extends Observable{
 			m_listeImageSelection.add(i);
 		}
 		
-		System.out.println(m_listeImageSelection.size() + " images selectionées");
+		//System.out.println(m_listeImageSelection.size() + " images selectionées");
 		
 		
 		/* FERMETURE DES FLUX */
