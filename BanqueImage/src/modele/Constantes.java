@@ -9,6 +9,6 @@ public class Constantes {
 	public static double h = screenSize.getHeight();
 	public static int numdebutdepage=0;
 	public static boolean estengrand=false;
-	public static int numimage=5;
+	public static int numimage;
 
 }

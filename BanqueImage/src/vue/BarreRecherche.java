@@ -14,7 +14,8 @@ public class BarreRecherche extends Panel {
 		int largeur=(int) modele.Constantes.w*2/3+(int) modele.Constantes.w*1/10;;
 		int hauteur=(int) modele.Constantes.h*1/12;
 		this.setPreferredSize(new Dimension(largeur,hauteur));
-		this.setBackground(Color.RED);
+		//this.setBackground(Color.RED);
+		this.setBackground(new Color(200,200,200));
 		
 		TextField tag = new TextField();
 		tag.setColumns(50);

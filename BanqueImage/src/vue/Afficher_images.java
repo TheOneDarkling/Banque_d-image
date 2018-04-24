@@ -28,7 +28,8 @@ public class Afficher_images extends Canvas implements Observer{
 		super();
 		this.image=b;
 		this.setName("images");
-		this.setBackground(Color.green);
+		//this.setBackground(Color.green);
+		this.setBackground(new Color(200,200,200));
 		this.setPreferredSize(new Dimension(largeur,hauteur));
 	
 		this.img = new Image[image.m_listeImage.size()];
@@ -60,7 +61,6 @@ public class Afficher_images extends Canvas implements Observer{
 		int numimage=image.m_listeImageSelection.size();
 		for (int i = modele.Constantes.numdebutdepage*8; i < (modele.Constantes.numdebutdepage+1)*8; i++) {
 			if (i<numimage){
-				System.out.println(i);
 				if (img[image.m_listeImageSelection.get(i)]==null){
 				try {
 					img[image.m_listeImageSelection.get(i)] = ImageIO.read(new File(image.m_listeImage.get(image.m_listeImageSelection.get(i)).m_lien));
