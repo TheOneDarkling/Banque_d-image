@@ -39,9 +39,11 @@ public ControleurAffichage(Biblio b){
 				int imgBorderTop = posY*pasX+(posY+1)*pasY + posY*imgDim;
 				int imgBorderBottom = posY*pasX+(posY+1)*pasY+(posY+1)*imgDim;
 				
-				if(imgBorderLeft <= xCoord && xCoord <= imgBorderRight
+				int indexImage = posX + 4*posY;
+				
+				if(indexImage+8*modele.Constantes.numdebutdepage<b.m_listeImageSelection.size()
+				&& imgBorderLeft <= xCoord && xCoord <= imgBorderRight
 				&& imgBorderTop <= yCoord && yCoord <= imgBorderBottom) {
-					int indexImage = posX + 4*posY;
 					b.setNumImage(indexImage + 8*modele.Constantes.numdebutdepage);
 					b.toggleImage();
 				}else if(modele.Constantes.estengrand) {b.toggleImage();}
