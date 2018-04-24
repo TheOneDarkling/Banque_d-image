@@ -126,6 +126,8 @@ public class Biblio extends Observable{
 		}else if(!condition && this.m_listeImageSelection.contains(imgID)) {
 			this.removeImgIndex(imgID);
 		}
+		
+		modele.Constantes.numdebutdepage = 0;
 		this.setChanged();
 		this.notifyObservers();	
 	}
