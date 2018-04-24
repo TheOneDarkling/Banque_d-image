@@ -113,15 +113,23 @@ public class Biblio extends Observable{
 	/* Ajout/Enlèvement/Réinitialisation d'images de la liste de sélection */
 	public void addImgIndex(Integer i) {
 		this.m_listeImageSelection.add(i);
-		this.setChanged();
-		this.notifyObservers();
 	}
 	
 	public void removeImgIndex(Integer i) {
 		this.m_listeImageSelection.remove(i);
-		this.setChanged();
-		this.notifyObservers();
 	}
+	
+	
+	public void modifyListeSelection(boolean condition, Integer imgID) {
+		if(condition && !this.m_listeImageSelection.contains(imgID)) {
+			this.addImgIndex(imgID);
+		}else if(!condition && this.m_listeImageSelection.contains(imgID)) {
+			this.removeImgIndex(imgID);
+		}
+		this.setChanged();
+		this.notifyObservers();	
+	}
+	
 	
 	public void resetListeSelection() {
 		this.m_listeImageSelection.clear();

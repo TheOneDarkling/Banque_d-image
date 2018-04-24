@@ -1,6 +1,8 @@
 package controleur;
 
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.TextEvent;
@@ -14,25 +16,18 @@ import javax.swing.JComboBox;
 import modele.Biblio;
 import modele.ImagePerso;
 
-public class ControleurRecherche implements TextListener, ItemListener{
+public class ControleurRecherche implements TextListener, ItemListener, ActionListener{
 	Biblio b;
-	Set<String> tags;
+	Set<String> searchTags;
 	String rechNom;
 	
 	
 	public ControleurRecherche(Biblio b){
 		this.b = b;
-		this.tags = new HashSet<String>();
+		this.searchTags = new HashSet<String>();
 		this.rechNom = "" ;
 	}
 	
-	public void modifyListeSelection(boolean condition, Integer imgID) {
-		if(condition && !b.m_listeImageSelection.contains(imgID)) {
-			b.addImgIndex(imgID);
-		}else if(!condition && b.m_listeImageSelection.contains(imgID)) {
-			b.removeImgIndex(imgID);
-		}
-	}
 	@Override
 	public void textValueChanged(TextEvent e) {
 		TextField t = (TextField)e.getSource();
@@ -49,10 +44,10 @@ public class ControleurRecherche implements TextListener, ItemListener{
 				break;
 				
 			case "tag":
-				this.tags.clear();
+				this.searchTags.clear();
 				
 				String txt = t.getText().trim().replaceAll(" +", " ");
-				for(String tag: txt.split(" ")) {this.tags.add(tag);}	
+				for(String tag: txt.split(" ")) {this.searchTags.add(tag);}	
 			
 				
 				break;
@@ -63,7 +58,7 @@ public class ControleurRecherche implements TextListener, ItemListener{
 		int i=0;
 		while(i<b.m_nbImages && !tagFound) {
 			img = b.m_listeImage.get(i);
-			itTags = this.tags.iterator();
+			itTags = this.searchTags.iterator();
 			
 			while(itTags.hasNext() && !tagFound) {
 				tagFound = img.m_listeTags.contains(itTags.next());
@@ -77,7 +72,7 @@ public class ControleurRecherche implements TextListener, ItemListener{
 			for(i=0; i<b.m_listeImage.size(); i++) {
 				img = b.m_listeImage.get(i);
 				tagInImage = false;
-				itTags = this.tags.iterator();
+				itTags = this.searchTags.iterator();
 				
 				while(itTags.hasNext() && !tagInImage) {
 					String tag = itTags.next();
@@ -85,15 +80,15 @@ public class ControleurRecherche implements TextListener, ItemListener{
 				}
 				
 				if(!this.rechNom.isEmpty()) {
-					this.modifyListeSelection(tagInImage && img.m_titre.toUpperCase().startsWith(this.rechNom), i);
+					b.modifyListeSelection(tagInImage && img.m_titre.toUpperCase().startsWith(this.rechNom), i);
 				}else{
-					this.modifyListeSelection(tagInImage, i);
+					b.modifyListeSelection(tagInImage, i);
 				}
 			}
 		}else if(!this.rechNom.isEmpty()) {
 			for(i=0; i<b.m_listeImage.size(); i++) {
 				img = b.m_listeImage.get(i);
-				this.modifyListeSelection(img.m_titre.toUpperCase().startsWith(this.rechNom), i);
+				b.modifyListeSelection(img.m_titre.toUpperCase().startsWith(this.rechNom), i);
 			}
 		}else {
 			b.resetListeSelection();			
@@ -130,6 +125,19 @@ public class ControleurRecherche implements TextListener, ItemListener{
 			}
 			System.out.println("----------------------------------");
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		/*if(modele.Constantes.estengrand) {
+			TextField t = (TextField)e.getSource();
+			String[] imgTags = t.getText().split(" +");
+			for(String tag: imgTags) {
+				if(!)
+					System.out.println(str);
+			};
+			System.out.println("------------------");
+		}*/
 	}
 
 }
