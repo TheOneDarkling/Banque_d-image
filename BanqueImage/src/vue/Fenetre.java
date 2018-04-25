@@ -7,6 +7,7 @@ import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import controleur.ControleurAffichage;
+import controleur.ControleurNotes;
 import controleur.ControleurRecherche;
 import modele.Biblio;
 
@@ -17,6 +18,7 @@ public class Fenetre extends Frame implements WindowListener {
 			Biblio b = new Biblio();
 			ControleurAffichage ctrlAff = new ControleurAffichage(b);
 			ControleurRecherche ctrlRech = new ControleurRecherche(b);
+			ControleurNotes ctrlNotes = new ControleurNotes(b);
 			
 			this.setLayout(new BorderLayout());
 			
@@ -36,7 +38,7 @@ public class Fenetre extends Frame implements WindowListener {
 			fleches.addMouseListener(ctrlAff);
 			b.addObserver(fleches);
 			
-			Note notes = new Note(b);
+			Note notes = new Note(b, ctrlNotes);
 			
 			BasDePage bdp = new BasDePage(fleches, notes);
 			b.addObserver(bdp);

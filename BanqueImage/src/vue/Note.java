@@ -11,6 +11,7 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 import controleur.ControleurAffichage;
+import controleur.ControleurNotes;
 import modele.Biblio;
 
 public class Note extends JPanel{
@@ -21,7 +22,7 @@ public class Note extends JPanel{
 
 	public static String[] libelles = { "*", "**", "***", "****", "*****" };
 	
-	public Note(Biblio b) {
+	public Note(Biblio b, ControleurNotes ctrl) {
 		this.b=b;
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(largeur, hauteur));
@@ -37,8 +38,10 @@ public class Note extends JPanel{
 			Font font = new Font("Arial",Font.BOLD,50);
 			this.etoiles[i].setFont(font);
 			this.etoiles[i].setForeground(Color.yellow);
+			this.etoiles[i].addItemListener(ctrl);
 			this.add(this.etoiles[i]);
 		}
+		
 
 	}
 	
