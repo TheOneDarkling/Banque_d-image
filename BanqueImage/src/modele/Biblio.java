@@ -105,9 +105,9 @@ public class Biblio extends Observable{
 		
 	}
 	
-	public void addTag(int idImage, String tag)
+	public void addTag(String tag)
 	{
-		
+		this.m_listeImage.get(this.m_listeImageSelection.get(modele.Constantes.numimage)).m_listeTags.add(tag);
 	}
 	
 	/* Ajout/Enlèvement/Réinitialisation d'images de la liste de sélection */

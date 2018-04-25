@@ -21,6 +21,7 @@ public class BarreRecherche extends Panel {
 		tag.setColumns(50);
 		tag.setName("tag");
 		tag.addTextListener(ctrlRech);
+		tag.addActionListener(ctrlRech);
 		
 		Font font = new Font("Arial",Font.BOLD,15);
 		Label lb2= new Label("Recherche par tags");

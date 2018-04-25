@@ -76,19 +76,15 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 				}
 				
 				this.states = new boolean[]{
-									!this.tagFound ||
-									this.tagFound && this.tagInImage,
+									!this.tagFound || this.tagInImage,
 									
-									this.rechNom.isEmpty() ||
-									!this.rechNom.isEmpty() && img.m_titre.toUpperCase().startsWith(this.rechNom),
+									this.rechNom.isEmpty() || img.m_titre.toUpperCase().startsWith(this.rechNom),
 								
 								   	img.m_largeur >= this.rechLargeur || img.m_hauteur >= this.rechHauteur,
 								   	
-								   	this.rechCouleur.isEmpty() ||
-								   	!this.rechCouleur.isEmpty() && img.m_listeTags.contains(this.rechCouleur),
+								   	this.rechCouleur.isEmpty() || img.m_listeTags.contains(this.rechCouleur),
 								   	
-								   	this.rechExtension.isEmpty() ||
-								   	!this.rechExtension.isEmpty() && img.m_format.equals(this.rechExtension)};
+								   	this.rechExtension.isEmpty() || img.m_format.equals(this.rechExtension)};
 
 				
 				b.modifyListeSelection(this.states, i);
@@ -101,16 +97,13 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 				img = b.m_listeImage.get(i);
 				
 				this.states = new boolean[]{
-									this.rechNom.isEmpty() ||
-									!this.rechNom.isEmpty() && img.m_titre.toUpperCase().startsWith(this.rechNom),
+									this.rechNom.isEmpty() || img.m_titre.toUpperCase().startsWith(this.rechNom),
 								
 								   	img.m_largeur >= this.rechLargeur || img.m_hauteur >= this.rechHauteur,
 								   	
-								   	this.rechCouleur.isEmpty() ||
-								   	!this.rechCouleur.isEmpty() && img.m_listeTags.contains(this.rechCouleur),
+								   	this.rechCouleur.isEmpty() || img.m_listeTags.contains(this.rechCouleur),
 								   	
-								   	this.rechExtension.isEmpty() ||
-								   	!this.rechExtension.isEmpty() && img.m_format.equals(this.rechExtension)};
+								   	this.rechExtension.isEmpty() || img.m_format.equals(this.rechExtension)};
 				
 				b.modifyListeSelection(this.states, i);
 				//System.out.println(this.tagFound+"|"+img.m_titre+" "+Arrays.toString(states));
@@ -192,15 +185,20 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/*if(modele.Constantes.estengrand) {
+		if(modele.Constantes.estengrand) {
 			TextField t = (TextField)e.getSource();
-			String[] imgTags = t.getText().split(" +");
+			ImagePerso img = b.m_listeImage.get(b.m_listeImageSelection.get(modele.Constantes.numimage));
+			//t.setText(img.m_listeTags.toString());
+			String[] imgTags = t.getText().trim().split(" +");
 			for(String tag: imgTags) {
-				if(!)
-					System.out.println(str);
-			};
-			System.out.println("------------------");
-		}*/
+				if(!img.m_listeTags.contains(tag) && !tag.isEmpty()) {
+					b.addTag(tag);
+					System.out.println(String.format("Tag %s ajouté à %s", tag, img.m_titre));
+				}
+			}
+			t.setText("");
+			
+		}
 	}
 
 }
