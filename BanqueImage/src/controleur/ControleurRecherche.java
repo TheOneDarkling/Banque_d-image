@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.TextEvent;
 import java.awt.event.TextListener;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -18,24 +19,112 @@ import modele.ImagePerso;
 
 public class ControleurRecherche implements TextListener, ItemListener, ActionListener{
 	Biblio b;
+	Iterator<String> itTags;
 	Set<String> searchTags;
+	boolean tagFound;
+	boolean tagInImage;
 	String rechNom;
+	int rechLargeur;
+	int rechHauteur;
+	String rechCouleur;
+	String rechExtension;
+	boolean[] states;
 	
 	
 	public ControleurRecherche(Biblio b){
 		this.b = b;
 		this.searchTags = new HashSet<String>();
+		this.tagFound = false;
+		this.tagInImage = false;
 		this.rechNom = "" ;
+		this.rechLargeur = 0;
+		this.rechHauteur = 0;
+		this.rechCouleur = "";
+		this.rechExtension = "";
+	}
+	
+	void checkTagFound() {
+		ImagePerso img;
+		
+		this.tagFound = false;
+		
+		int i=0;
+		while(i<b.m_nbImages && !this.tagFound) {
+			img = b.m_listeImage.get(i);
+			this.itTags = this.searchTags.iterator();
+			
+			while(this.itTags.hasNext() && !this.tagFound) {
+				this.tagFound = img.m_listeTags.contains(this.itTags.next());
+			}
+			
+			i++;
+		}
+	}
+	
+	void checkImages() {
+		ImagePerso img;
+		if(this.tagFound) {
+			
+			for(int i=0; i<b.m_listeImage.size(); i++) {
+				img = b.m_listeImage.get(i);
+				this.tagInImage = false;
+				this.itTags = this.searchTags.iterator();
+				
+				while(this.itTags.hasNext() && !this.tagInImage) {
+					String tag = this.itTags.next();
+					this.tagInImage = img.m_listeTags.contains(tag);
+				}
+				
+				this.states = new boolean[]{
+									!this.tagFound ||
+									this.tagFound && this.tagInImage,
+									
+									this.rechNom.isEmpty() ||
+									!this.rechNom.isEmpty() && img.m_titre.toUpperCase().startsWith(this.rechNom),
+								
+								   	img.m_largeur >= this.rechLargeur || img.m_hauteur >= this.rechHauteur,
+								   	
+								   	this.rechCouleur.isEmpty() ||
+								   	!this.rechCouleur.isEmpty() && img.m_listeTags.contains(this.rechCouleur),
+								   	
+								   	this.rechExtension.isEmpty() ||
+								   	!this.rechExtension.isEmpty() && img.m_format.equals(this.rechExtension)};
+
+				
+				b.modifyListeSelection(this.states, i);
+				//System.out.println(this.tagFound+"|"+img.m_titre+" "+Arrays.toString(states));
+				//System.out.println("-----------------------------");
+				
+			}
+		}else {
+			for(int i=0; i<b.m_listeImage.size(); i++) {
+				img = b.m_listeImage.get(i);
+				
+				this.states = new boolean[]{
+									this.rechNom.isEmpty() ||
+									!this.rechNom.isEmpty() && img.m_titre.toUpperCase().startsWith(this.rechNom),
+								
+								   	img.m_largeur >= this.rechLargeur || img.m_hauteur >= this.rechHauteur,
+								   	
+								   	this.rechCouleur.isEmpty() ||
+								   	!this.rechCouleur.isEmpty() && img.m_listeTags.contains(this.rechCouleur),
+								   	
+								   	this.rechExtension.isEmpty() ||
+								   	!this.rechExtension.isEmpty() && img.m_format.equals(this.rechExtension)};
+				
+				b.modifyListeSelection(this.states, i);
+				//System.out.println(this.tagFound+"|"+img.m_titre+" "+Arrays.toString(states));
+				//System.out.println("-----------------------------");
+				
+			}
+		}
 	}
 	
 	@Override
 	public void textValueChanged(TextEvent e) {
 		TextField t = (TextField)e.getSource();
 		String titre = t.getName();
-		Iterator<String> itTags;
 		ImagePerso img;
-		boolean tagFound = false;
-		boolean tagInImage;
 		
 		
 		switch(titre) {
@@ -55,75 +144,49 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 				
 		}
 		
-		int i=0;
-		while(i<b.m_nbImages && !tagFound) {
-			img = b.m_listeImage.get(i);
-			itTags = this.searchTags.iterator();
-			
-			while(itTags.hasNext() && !tagFound) {
-				tagFound = img.m_listeTags.contains(itTags.next());
-			}
-			
-			i++;
-		}
 		
-		if(tagFound) {
 		
-			for(i=0; i<b.m_listeImage.size(); i++) {
-				img = b.m_listeImage.get(i);
-				tagInImage = false;
-				itTags = this.searchTags.iterator();
-				
-				while(itTags.hasNext() && !tagInImage) {
-					String tag = itTags.next();
-					tagInImage = img.m_listeTags.contains(tag);
-				}
-				
-				if(!this.rechNom.isEmpty()) {
-					b.modifyListeSelection(tagInImage && img.m_titre.toUpperCase().startsWith(this.rechNom), i);
-				}else{
-					b.modifyListeSelection(tagInImage, i);
-				}
-			}
-		}else if(!this.rechNom.isEmpty()) {
-			for(i=0; i<b.m_listeImage.size(); i++) {
-				img = b.m_listeImage.get(i);
-				b.modifyListeSelection(img.m_titre.toUpperCase().startsWith(this.rechNom), i);
-			}
-		}else {
-			b.resetListeSelection();			
-		}
-		/*for(int id: b.m_listeImageSelection) {System.out.println(b.m_listeImage.get(id).m_titre);}
-		System.out.println("----------------------------------");*/
+		checkTagFound();
+		
+		checkImages();
+		
 	}
 
 	@Override
 	public void itemStateChanged(ItemEvent event) {
 		JComboBox box = (JComboBox)event.getSource();
 		String titre = box.getName();
-		if(event.getStateChange() == event.SELECTED && !event.getItem().toString().startsWith(titre)){
+		if(event.getStateChange() == event.SELECTED){
 			switch(titre){
 				case "Taille":
-					String[] imgDims = event.getItem().toString().split(" x ");
-					int imgDimX = Integer.parseInt(imgDims[0]);
-					int imgDimY = Integer.parseInt(imgDims[1]);
-					/*for(int i=0; i<b.m_listeImageSelection.size(); i++) {
-						ImagePerso img = b.m_listeImageSelection.get(i);
-						if(img.m_largeur > imgDimX && img.m_hauteur > imgDimY) {
-							System.out.println(img.m_titre);
-						}
-					}*/
-					System.out.println(imgDimX+" "+imgDimY);
+					if(!event.getItem().toString().startsWith(titre)) {
+						String[] imgDims = event.getItem().toString().split(" x ");
+						rechLargeur = Integer.parseInt(imgDims[0]);
+						rechHauteur = Integer.parseInt(imgDims[1]);
+					}else{
+						rechLargeur = 0;
+						rechHauteur = 0;
+					}
 					break;
 				case "Couleur":
-					System.out.println(box.getSelectedItem()); break;
+					if(!event.getItem().toString().startsWith(titre)) {
+						rechCouleur = box.getSelectedItem().toString().toLowerCase(); 
+					}else {
+						rechCouleur = "";
+					}
+					break;
 				case "Format":
-					for(ImagePerso img: b.m_listeImage){
-						if(img.m_lien.endsWith(box.getSelectedItem().toString())){System.out.println(img.m_titre);}
+					if(!event.getItem().toString().startsWith(titre)) {
+						rechExtension = box.getSelectedItem().toString().substring(1);
+					}else {
+						rechExtension = "";
 					}
 					break;	
 			}
-			System.out.println("----------------------------------");
+			
+			
+			checkImages();
+			
 		}
 	}
 

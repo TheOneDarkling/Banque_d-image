@@ -27,9 +27,7 @@ public class ImagePerso {
 	  m_format = format;
 	  m_lien = lien;
 	  
-	  //chargerTaille();
-	  m_largeur = 0;
-	  m_hauteur = 0;
+	  chargerTaille();
 	  
 	  m_byte = 0;
 	  

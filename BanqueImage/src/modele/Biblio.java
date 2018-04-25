@@ -119,20 +119,6 @@ public class Biblio extends Observable{
 		this.m_listeImageSelection.remove(i);
 	}
 	
-	
-	public void modifyListeSelection(boolean condition, Integer imgID) {
-		if(condition && !this.m_listeImageSelection.contains(imgID)) {
-			this.addImgIndex(imgID);
-		}else if(!condition && this.m_listeImageSelection.contains(imgID)) {
-			this.removeImgIndex(imgID);
-		}
-		
-		modele.Constantes.numdebutdepage = 0;
-		this.setChanged();
-		this.notifyObservers();	
-	}
-	
-	
 	public void resetListeSelection() {
 		this.m_listeImageSelection.clear();
 		for(int i=0; i<this.m_nbImages; i++) {
@@ -141,6 +127,29 @@ public class Biblio extends Observable{
 		this.setChanged();
 		this.notifyObservers();
 	}
+	
+	public void modifyListeSelection(boolean[] conditions, Integer imgID) {
+		
+		
+		if(conditions[0] && !this.m_listeImageSelection.contains(imgID)) {
+			this.addImgIndex(imgID);
+		}else if(!conditions[0] && this.m_listeImageSelection.contains(imgID)) {
+			this.removeImgIndex(imgID);
+		}
+	
+		
+		for(int i=1; i<conditions.length; i++) {
+			if(!conditions[i] && this.m_listeImageSelection.contains(imgID)) {
+				this.removeImgIndex(imgID);
+			}
+		}
+		
+		modele.Constantes.numdebutdepage = 0;
+		this.setChanged();
+		this.notifyObservers();	
+	}
+	
+	
 	
 	/*
 	 *  LE MAIN (POUR LES TEST)
