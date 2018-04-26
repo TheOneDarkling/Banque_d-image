@@ -26,7 +26,14 @@ public class Fenetre extends Frame implements WindowListener {
 			this.add(bTri, BorderLayout.WEST);
 
 			BarreRecherche bRecherche = new BarreRecherche(ctrlRech);
-			this.add(bRecherche, BorderLayout.NORTH);
+			
+			Ajout_tags tag= new Ajout_tags(ctrlRech);
+			
+			
+			HautDePages hdp=new HautDePages(bRecherche,tag);
+			b.addObserver(hdp);
+			this.add(hdp,BorderLayout.NORTH);
+			
 			
 			Afficher_images images = new Afficher_images(b);
 			images.addMouseListener(ctrlAff);
