@@ -20,7 +20,7 @@ public class Note extends JPanel{
 	int hauteur = (int) modele.Constantes.h * 1 / 12;
 	Biblio b;
 
-	public static String[] libelles = { "*", "**", "***", "****", "*****" };
+	public static String[] libelles = {"*", "**", "***", "****", "*****" };
 	
 	public Note(Biblio b, ControleurNotes ctrl) {
 		this.b=b;

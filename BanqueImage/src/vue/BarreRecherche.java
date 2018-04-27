@@ -6,10 +6,15 @@ import java.awt.Font;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
+import java.util.Observable;
+import java.util.Observer;
 
 import controleur.ControleurRecherche;
 
-public class BarreRecherche extends Panel {
+public class BarreRecherche extends Panel implements Observer {
+	Font font = new Font("Arial",Font.BOLD,15);
+	Label lb2= new Label("Recherche par tags");
+	
 	public BarreRecherche(ControleurRecherche ctrlRech){
 		int largeur=(int) modele.Constantes.w*2/3+(int) modele.Constantes.w*1/10;;
 		int hauteur=(int) modele.Constantes.h*1/12;
@@ -22,14 +27,27 @@ public class BarreRecherche extends Panel {
 		tag.setName("tag");
 		tag.addTextListener(ctrlRech);
 		tag.addActionListener(ctrlRech);
-		
-		Font font = new Font("Arial",Font.BOLD,15);
-		Label lb2= new Label("Recherche par tags");
 		lb2.setFont(font);
 		this.add(lb2);
 		this.add(tag);
 
 		
+		
+	}
+	public void change(){
+		if(modele.Constantes.estengrand) {
+			lb2.setText("Ajout de tags");
+			
+		}
+		else{
+			lb2.setText("Recherche par tags");
+		}
+		this.invalidate();
+		this.revalidate();
+	}
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		change();
 		
 	}
 
