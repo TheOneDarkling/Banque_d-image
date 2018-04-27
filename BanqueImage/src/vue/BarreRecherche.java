@@ -14,6 +14,7 @@ import controleur.ControleurRecherche;
 public class BarreRecherche extends Panel implements Observer {
 	Font font = new Font("Arial",Font.BOLD,15);
 	Label lb2= new Label("Recherche par tags");
+	TextField tag = new TextField();
 	
 	public BarreRecherche(ControleurRecherche ctrlRech){
 		int largeur=(int) modele.Constantes.w*2/3+(int) modele.Constantes.w*1/10;;
@@ -22,7 +23,6 @@ public class BarreRecherche extends Panel implements Observer {
 		//this.setBackground(Color.RED);
 		this.setBackground(new Color(200,200,200));
 		
-		TextField tag = new TextField();
 		tag.setColumns(50);
 		tag.setName("tag");
 		tag.addTextListener(ctrlRech);
@@ -36,17 +36,20 @@ public class BarreRecherche extends Panel implements Observer {
 	}
 	public void change(){
 		if(modele.Constantes.estengrand) {
+			tag.setText("");
 			lb2.setText("Ajout de tags");
-			
 		}
 		else{
 			lb2.setText("Recherche par tags");
+			
 		}
 	
 	}
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		change();
+	public void update(Observable arg0, Object message) {
+		if(message.toString().equals("toggle")) {
+			change();
+		}
 		
 	}
 

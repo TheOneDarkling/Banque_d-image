@@ -87,22 +87,19 @@ public class Biblio extends Observable{
 	public void setNumPage(int page){
 		modele.Constantes.numdebutdepage = page;
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers("page");
 		
 	}
 
 	public void toggleImage(){
 		modele.Constantes.estengrand = !modele.Constantes.estengrand;
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers("toggle");
 		
 	}
 	
 	public void setNumImage(int num){
 		modele.Constantes.numimage = num;
-		this.setChanged();
-		this.notifyObservers();
-		
 	}
 	
 	public void addTag(String tag)
@@ -118,35 +115,30 @@ public class Biblio extends Observable{
 	public void removeImgIndex(Integer i) {
 		this.m_listeImageSelection.remove(i);
 	}
-	
-	public void resetListeSelection() {
-		this.m_listeImageSelection.clear();
-		for(int i=0; i<this.m_nbImages; i++) {
-			this.m_listeImageSelection.add(i);
-		}
-		this.setChanged();
-		this.notifyObservers();
-	}
+
 	
 	public void modifyListeSelection(boolean[] conditions, Integer imgID) {
 		
 		
 		if(conditions[0] && !this.m_listeImageSelection.contains(imgID)) {
 			this.addImgIndex(imgID);
+			this.setChanged();
 		}else if(!conditions[0] && this.m_listeImageSelection.contains(imgID)) {
 			this.removeImgIndex(imgID);
+			this.setChanged();
 		}
 	
 		
 		for(int i=1; i<conditions.length; i++) {
 			if(!conditions[i] && this.m_listeImageSelection.contains(imgID)) {
 				this.removeImgIndex(imgID);
+				this.setChanged();
 			}
+			
 		}
 		
 		modele.Constantes.numdebutdepage = 0;
-		this.setChanged();
-		this.notifyObservers();	
+		this.notifyObservers("modifyListeSelection");	
 	}
 	
 	

@@ -119,24 +119,25 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 		String titre = t.getName();
 		ImagePerso img;
 		
+		if(!modele.Constantes.estengrand) {
 		
-		switch(titre) {
-			case "nom":
-				this.rechNom = t.getText().trim().toUpperCase();				
-				break;
+			switch(titre) {
+				case "nom":
+					this.rechNom = t.getText().trim().toUpperCase();				
+					break;
+					
+				case "tag":
+					this.searchTags.clear();
+					
+					String txt = t.getText().trim().replaceAll(" +", " ");
+					for(String tag: txt.split(" ")) {this.searchTags.add(tag);}	
 				
-			case "tag":
-				this.searchTags.clear();
-				
-				String txt = t.getText().trim().replaceAll(" +", " ");
-				for(String tag: txt.split(" ")) {this.searchTags.add(tag);}	
-			
-				
-				break;
-				
-				
+					
+					break;
+					
+					
+			}
 		}
-		
 		
 		
 		checkTagFound();

@@ -31,8 +31,10 @@ public class BasDePage extends JPanel implements Observer{
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		change();
+	public void update(Observable arg0, Object message) {
+		if(message.toString().equals("toggle")) {
+			change();
+		}
 		
 	}
 	
