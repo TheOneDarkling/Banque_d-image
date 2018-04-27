@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import controleur.ControleurAffichage;
 import controleur.ControleurNotes;
 import modele.Biblio;
+import modele.ImagePerso;
 
 public class Note extends JPanel{
 	Checkbox[] etoiles = new Checkbox[5];
@@ -49,5 +50,14 @@ public class Note extends JPanel{
 	public void resetAllCheckboxes() {
 		cg.setSelectedCheckbox(null);
 	}
-		
+	
+	void initCheckbox() {
+		ImagePerso img = b.m_listeImage.get(b.m_listeImageSelection.get(modele.Constantes.numimage));
+		if(img.m_note != 6) {
+			cg.setSelectedCheckbox(this.etoiles[img.m_note-1]);
+		}else {
+			this.resetAllCheckboxes();
+		}
+	}
+	
 }

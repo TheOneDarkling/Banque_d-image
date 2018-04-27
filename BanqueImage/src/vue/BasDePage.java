@@ -22,7 +22,7 @@ public class BasDePage extends JPanel implements Observer{
 		if(modele.Constantes.estengrand) {
 			this.remove(fleches);
 			this.add(notes);
-			notes.resetAllCheckboxes();
+			notes.initCheckbox();
 		}else {
 			this.remove(notes);
 			this.add(fleches);
