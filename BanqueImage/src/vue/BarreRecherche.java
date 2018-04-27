@@ -42,8 +42,7 @@ public class BarreRecherche extends Panel implements Observer {
 		else{
 			lb2.setText("Recherche par tags");
 		}
-		this.invalidate();
-		this.revalidate();
+	
 	}
 	@Override
 	public void update(Observable arg0, Object arg1) {
