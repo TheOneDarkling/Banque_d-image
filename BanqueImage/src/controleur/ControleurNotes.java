@@ -16,8 +16,6 @@ public class ControleurNotes implements ItemListener{
 	@Override
 	public void itemStateChanged(ItemEvent event) {
 		ImagePerso img = b.m_listeImage.get(b.m_listeImageSelection.get(modele.Constantes.numimage));
-		System.out.println(String.format("%s avant: %d", img.m_titre, img.m_note));
 		img.m_note =  event.getItem().toString().length();
-		System.out.println(String.format("%s apres: %d", img.m_titre, img.m_note));
 	}
 }

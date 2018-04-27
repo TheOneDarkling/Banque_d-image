@@ -19,7 +19,8 @@ public class Note extends JPanel{
 	int largeur = (int) modele.Constantes.w * 2 / 3 + (int) modele.Constantes.w * 1 / 10;
 	int hauteur = (int) modele.Constantes.h * 1 / 12;
 	Biblio b;
-
+	CheckboxGroup cg;
+	
 	public static String[] libelles = {"*", "**", "***", "****", "*****" };
 	
 	public Note(Biblio b, ControleurNotes ctrl) {
@@ -27,7 +28,7 @@ public class Note extends JPanel{
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(largeur, hauteur));
 		
-		CheckboxGroup cg = new CheckboxGroup();
+		cg = new CheckboxGroup();
 		Label note = new Label("Saisir une Note sur 5 :");
 		Font f = new Font("Arial",Font.BOLD,18);
 		note.setFont(f);
@@ -42,7 +43,11 @@ public class Note extends JPanel{
 			this.add(this.etoiles[i]);
 		}
 		
-
+		
 	}
 	
+	public void resetAllCheckboxes() {
+		cg.setSelectedCheckbox(null);
+	}
+		
 }
