@@ -1,9 +1,11 @@
 package modele;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -105,6 +107,47 @@ public class Biblio extends Observable{
 	public void addTag(String tag)
 	{
 		this.m_listeImage.get(this.m_listeImageSelection.get(modele.Constantes.numimage)).m_listeTags.add(tag);
+		System.out.println(String.format("L'id correspond a %s", this.m_listeImageSelection.get(modele.Constantes.numimage)));
+		
+		// Modification des fichiers tags
+		
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("data/tagsTemp.txt")));
+			BufferedReader lecteur = new BufferedReader(new FileReader(new File("data/tags.txt")));
+			 
+			String line;
+			int compteurImg=0;
+			// Creation du fichier temporaire
+			while ((line = lecteur.readLine()) != null) {
+				
+			writer.write(line);
+			
+			
+				if(compteurImg == this.m_listeImageSelection.get(modele.Constantes.numimage))
+				{
+					writer.write("+"+tag);
+				}
+				
+				writer.write("\n");
+				
+				compteurImg++;
+			}
+			lecteur.close();
+			writer.close();
+			
+			// Mise en place nouveau fichier
+			
+			File ancien = new File("data/tags.txt");
+			ancien.delete();
+			
+			File nouveau = new File("data/tagsTemp.txt");
+			nouveau.renameTo( new File("data/tags.txt"));
+			
+			}
+			catch (IOException e)
+			{
+			e.printStackTrace();
+			}
 	}
 	
 	/* Ajout/Enlèvement/Réinitialisation d'images de la liste de sélection */
