@@ -35,14 +35,6 @@ public class BarreTri extends Panel {
 		Font font = new Font("Arial",Font.BOLD,15);
 		Font fontbarre = new Font("Arial",Font.BOLD,13);
 		
-		TextField date =new TextField();
-		date.setColumns(10);
-		date.setFont(font);
-		
-		
-		Label lb = new Label("Saisir une annee :");
-		lb.setFont(font);
-		
 		
 		
 		Label lb2= new Label("Recherche par nom");
@@ -73,7 +65,5 @@ public class BarreTri extends Panel {
 		this.add(Taille);
 		this.add(Couleur);
 		this.add(Format);
-		this.add(lb);
-		this.add(date);
 }}
 
