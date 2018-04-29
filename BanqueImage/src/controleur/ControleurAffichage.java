@@ -41,12 +41,14 @@ public ControleurAffichage(Biblio b){
 				
 				int indexImage = posX + 4*posY;
 				
-				if(indexImage+8*modele.Constantes.numdebutdepage<b.m_listeImageSelection.size()
-				&& imgBorderLeft <= xCoord && xCoord <= imgBorderRight
-				&& imgBorderTop <= yCoord && yCoord <= imgBorderBottom) {
+				if(modele.Constantes.estengrand) {
+					b.toggleImage();
+				}else if(indexImage+8*modele.Constantes.numdebutdepage<b.m_listeImageSelection.size()
+						&& imgBorderLeft <= xCoord && xCoord <= imgBorderRight
+						&& imgBorderTop <= yCoord && yCoord <= imgBorderBottom) {
 					b.setNumImage(indexImage + 8*modele.Constantes.numdebutdepage);
 					b.toggleImage();
-				}else if(modele.Constantes.estengrand) {b.toggleImage();}
+				}
 				break;
 			case "fleches":
 				if(xCoord > zoneFleches.getWidth()/2 && modele.Constantes.numdebutdepage < (b.m_listeImageSelection.size()-1) / 8) {

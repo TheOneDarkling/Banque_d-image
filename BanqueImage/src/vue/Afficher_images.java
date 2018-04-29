@@ -57,34 +57,6 @@ public class Afficher_images extends Canvas implements Observer{
 		
 
 	}
-	/*public void recharger(){
-		int numimage=image.m_listeImageSelection.size();
-		for (int i = modele.Constantes.numdebutdepage*8; i < (modele.Constantes.numdebutdepage+1)*8; i++) {
-			if (i<numimage){
-				if (img[image.m_listeImageSelection.get(i)]==null){
-				try {
-					img[image.m_listeImageSelection.get(i)] = ImageIO.read(new File(image.m_listeImage.get(image.m_listeImageSelection.get(i)).m_lien));
-					
-					
-				
-			
-					
-					
-				} catch (IOException e) {
-					throw new RuntimeException("L'image " + image.m_listeImage.get(image.m_listeImageSelection.get(i)) + " est introuvable");
-				}
-				}
-			}
-		}
-		
-		
-		
-		
-		
-		
-		repaint();
-		}*/
-		
 	
 
 	public void paint(Graphics g ) {

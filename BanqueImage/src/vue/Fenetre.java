@@ -25,7 +25,7 @@ public class Fenetre extends Frame implements WindowListener {
 			BarreTri bTri = new BarreTri(ctrlRech);
 			this.add(bTri, BorderLayout.WEST);
 
-			BarreRecherche bRecherche = new BarreRecherche(ctrlRech);
+			BarreRecherche bRecherche = new BarreRecherche(ctrlRech,b);
 	
 			b.addObserver(bRecherche);
 			

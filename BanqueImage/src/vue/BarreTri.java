@@ -21,7 +21,6 @@ public class BarreTri extends Panel {
 		int hauteur=(int) modele.Constantes.h*2/3;
 		
 		this.setPreferredSize(new Dimension(largeur,hauteur));
-		//this.setBackground(Color.GRAY);
 		this.setBackground(new Color(200,200,200));
 		String[] taille={"Taille superieur a","400 x 300","640 x 480","800 x 600","1024 x 768","1600 x 1200","2272 x 1704","2816 x 2112"};
 		String[] couleur={"Couleur dominante","Vert","Bleu","Rouge","Jaune","Marron","Noir","Blanc","Orange","Violet","Rose","Gris"};
@@ -34,14 +33,6 @@ public class BarreTri extends Panel {
 		
 		Font font = new Font("Arial",Font.BOLD,15);
 		Font fontbarre = new Font("Arial",Font.BOLD,13);
-		
-		TextField date =new TextField();
-		date.setColumns(10);
-		date.setFont(font);
-		
-		
-		Label lb = new Label("Saisir une annee :");
-		lb.setFont(font);
 		
 		
 		
@@ -73,7 +64,5 @@ public class BarreTri extends Panel {
 		this.add(Taille);
 		this.add(Couleur);
 		this.add(Format);
-		this.add(lb);
-		this.add(date);
 }}
 
