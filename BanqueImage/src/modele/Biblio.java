@@ -18,6 +18,8 @@ public class Biblio extends Observable{
 	public ArrayList<ImagePerso> m_listeImage= new ArrayList();
 	public int m_nbImages;
 	
+	public int m_idImageModif;
+	
 	/*  OBJETS POUR LA LECTURE DANS LES FICHIERS*/
 	
 	private File m_fichierTitre = new File("data/nom.txt");
@@ -43,6 +45,8 @@ public class Biblio extends Observable{
 	{
 		File dossierImage = new File("images/");
 		m_nbImages = dossierImage.listFiles().length;
+		
+		m_idImageModif = 0;
 		
 		
 		/* MISE EN PLACE DE LA LECTURE*/
@@ -94,6 +98,14 @@ public class Biblio extends Observable{
 	}
 
 	public void toggleImage(){
+		
+		if(!modele.Constantes.estengrand)
+		{
+			m_idImageModif = modele.Constantes.numimage;
+		}
+		
+		sauveNote();
+		
 		modele.Constantes.estengrand = !modele.Constantes.estengrand;
 		this.setChanged();
 		this.notifyObservers("toggle");
@@ -102,6 +114,53 @@ public class Biblio extends Observable{
 	
 	public void setNumImage(int num){
 		modele.Constantes.numimage = num;
+	}
+	
+	public void sauveNote(){
+		
+		if(modele.Constantes.estengrand)
+		{
+
+			try {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(new File("data/noteTemp.txt")));
+				BufferedReader lecteur = new BufferedReader(new FileReader(new File("data/note.txt")));
+				 
+				String line;
+				int compteurImg=0;
+				// Creation du fichier temporaire
+				while ((line = lecteur.readLine()) != null) {
+					
+				
+					if(compteurImg == this.m_listeImageSelection.get(m_idImageModif))
+					{
+						writer.write(String.valueOf(this.m_listeImage.get(this.m_listeImageSelection.get(m_idImageModif)).m_note));
+					}
+					else
+					{
+						writer.write(line);
+					}
+					
+					writer.write("\n");
+					
+					compteurImg++;
+				}
+				lecteur.close();
+				writer.close();
+				
+				// Mise en place nouveau fichier
+				
+				File ancien = new File("data/note.txt");
+				ancien.delete();
+				
+				File nouveau = new File("data/noteTemp.txt");
+				nouveau.renameTo( new File("data/note.txt"));
+				
+				}
+				catch (IOException e)
+				{
+				e.printStackTrace();
+				}
+		}
 	}
 	
 	public void addTag(String tag)
