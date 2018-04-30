@@ -207,6 +207,8 @@ public class Biblio extends Observable{
 			{
 			e.printStackTrace();
 			}
+		this.setChanged();
+		this.notifyObservers("addTag");
 	}
 	
 	/* Ajout/Enlèvement/Réinitialisation d'images de la liste de sélection */

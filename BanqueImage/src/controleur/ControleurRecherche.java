@@ -8,6 +8,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.TextEvent;
 import java.awt.event.TextListener;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -111,6 +112,15 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 				
 			}
 		}
+		
+		b.m_listeImageSelection.sort(new Comparator<Integer>() {
+
+			@Override
+			public int compare(Integer imgID1, Integer imgID2) {
+				return imgID1.compareTo(imgID2);
+			}
+			
+		});
 	}
 	
 	@Override
@@ -119,8 +129,8 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 		String titre = t.getName();
 		ImagePerso img;
 		
+	
 		if(!modele.Constantes.estengrand) {
-		
 			switch(titre) {
 				case "nom":
 					this.rechNom = t.getText().trim().toUpperCase();				
@@ -131,18 +141,19 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 					
 					String txt = t.getText().trim().replaceAll(" +", " ");
 					for(String tag: txt.split(" ")) {this.searchTags.add(tag);}	
-				
+					checkTagFound();
 					
 					break;
 					
 					
 			}
+			
+			checkImages();
 		}
 		
 		
-		checkTagFound();
 		
-		checkImages();
+		
 		
 	}
 
@@ -177,7 +188,6 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 					}
 					break;	
 			}
-			
 			
 			checkImages();
 			

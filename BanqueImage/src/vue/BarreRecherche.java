@@ -52,7 +52,8 @@ public class BarreRecherche extends Panel implements Observer {
 			}
 		
 			lb.setText(tag);
-			this.add(lb);		
+			this.add(lb);
+			this.invalidate(); this.revalidate();
 		}
 		else{
 			this.remove(lb);
@@ -64,7 +65,7 @@ public class BarreRecherche extends Panel implements Observer {
 	}
 	@Override
 	public void update(Observable arg0, Object message) {
-		if(message.toString().equals("toggle")) {
+		if(message.toString().equals("toggle") || message.toString().equals("addTag")) {
 			change();
 		}
 		

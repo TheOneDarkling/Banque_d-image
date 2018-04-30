@@ -7,29 +7,32 @@ import java.awt.Font;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextField;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JComboBox;
 
 import controleur.ControleurRecherche;
 
-public class BarreTri extends Panel {
-	
-	
+public class BarreTri extends Panel implements Observer{
+	JComboBox<String> Taille;
+	JComboBox<String> Couleur;
+	JComboBox<String> Format;
 	public BarreTri(ControleurRecherche ctrlRech){
 	
 		int largeur=(int) modele.Constantes.w*1/9;
 		int hauteur=(int) modele.Constantes.h*2/3;
 		
 		this.setPreferredSize(new Dimension(largeur,hauteur));
-		this.setBackground(new Color(200,200,200));
+		this.setBackground(new Color(100,100,100));
 		String[] taille={"Taille superieur a","400 x 300","640 x 480","800 x 600","1024 x 768","1600 x 1200","2272 x 1704","2816 x 2112"};
 		String[] couleur={"Couleur dominante","Vert","Bleu","Rouge","Jaune","Marron","Noir","Blanc","Orange","Violet","Rose","Gris"};
 		String[] format={"Format ",".jpg",".bmp",".png",".gif",".tiff"};
    
         
-		JComboBox<String> Taille= new JComboBox<String>(taille);
-		JComboBox<String> Couleur= new JComboBox<String>(couleur);
-		JComboBox<String> Format= new JComboBox<String>(format);
+		Taille= new JComboBox<String>(taille);
+		Couleur= new JComboBox<String>(couleur);
+		Format= new JComboBox<String>(format);
 		
 		Font font = new Font("Arial",Font.BOLD,15);
 		Font fontbarre = new Font("Arial",Font.BOLD,13);
@@ -64,5 +67,20 @@ public class BarreTri extends Panel {
 		this.add(Taille);
 		this.add(Couleur);
 		this.add(Format);
-}}
+}
+
+	public void switchComboBoxes() {
+		Taille.setEnabled(!modele.Constantes.estengrand);
+		Couleur.setEnabled(!modele.Constantes.estengrand);
+		Format.setEnabled(!modele.Constantes.estengrand);
+	}
+	
+	
+	@Override
+	public void update(Observable arg0, Object message) {
+		if(message.toString().equals("toggle")) {
+			switchComboBoxes();
+		}
+		
+	}}
 
