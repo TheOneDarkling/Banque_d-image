@@ -13,6 +13,7 @@ public class ImagePerso {
   public String m_titre;
   public String m_format;
   public String m_lien;
+  public String m_couleur;
   public ArrayList<String> m_listeTags= new ArrayList();
   public double m_hauteur;
   public double m_largeur;
@@ -20,7 +21,7 @@ public class ImagePerso {
   public int m_note;
  
   
-  public ImagePerso(int id, String titre, String format, String lien, String note)
+  public ImagePerso(int id, String titre, String format, String lien, String note, String couleur)
   {
 	  m_id = id;
 	  m_titre = titre;
@@ -32,6 +33,8 @@ public class ImagePerso {
 	  m_byte = 0;
 	  
 	  m_note = Integer.parseInt(note);
+	  
+	  m_couleur = couleur;
   }
   
   void associerLesTags(String tags)

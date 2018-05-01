@@ -26,6 +26,7 @@ public class Biblio extends Observable{
 	private File m_fichierFormat = new File("data/format.txt");
 	private File m_fichierTags = new File("data/tags.txt");
 	private File m_fichierNote = new File("data/note.txt");
+	private File m_fichierCouleur = new File("data/couleur.txt");
 	
 	
 	/* POUR LA SELECTION */
@@ -59,6 +60,9 @@ public class Biblio extends Observable{
 		String ligneTags;
 		BufferedReader brNote = new BufferedReader(new FileReader(m_fichierNote));
 		String ligneNote;
+		BufferedReader brCouleur = new BufferedReader(new FileReader(m_fichierCouleur));
+		String ligneCouleur;
+
 
 
 		/* REMPLISSAGE DE LA LISTE D IMAGE*/
@@ -69,8 +73,9 @@ public class Biblio extends Observable{
 			ligneFormat = brFormat.readLine();
 			ligneTags = brTags.readLine();
 			ligneNote = brNote.readLine();
+			ligneCouleur = brCouleur.readLine();
 			
-			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+".jpg", ligneNote)));
+			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+".jpg", ligneNote, ligneCouleur)));
 			m_listeImage.get(i).associerLesTags(ligneTags);
 			
 			/* initialisation liste de sélection d'images */
@@ -86,6 +91,7 @@ public class Biblio extends Observable{
 		brNom.close();
 		brTags.close();
 		brNote.close();
+		brCouleur.close();
 	}
 	
 	/* changement de page */
@@ -270,6 +276,7 @@ public class Biblio extends Observable{
 			System.out.println("Proportions : Longeur = " + b.m_listeImage.get(i).m_largeur + "     +  Hauteur = " + b.m_listeImage.get(i).m_hauteur);
 			System.out.println("Taille : " + b.m_listeImage.get(i).m_byte + " ko");
 			System.out.println("Note(6 = pas de note) : " + b.m_listeImage.get(i).m_note);
+			System.out.println("Couleur dom : " + b.m_listeImage.get(i).m_couleur);
 			System.out.println("======================================================================================");
 		}
 		

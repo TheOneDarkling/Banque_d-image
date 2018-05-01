@@ -1,0 +1,16 @@
+bleu
+violet
+noir
+gris
+vert
+gris
+blanc
+noir
+orange
+rouge
+vert
+marron
+bleu
+noir
+vert
+noir
