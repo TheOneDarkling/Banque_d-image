@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,6 +19,7 @@ public class BarreTri extends Panel implements Observer{
 	JComboBox<String> Taille;
 	JComboBox<String> Couleur;
 	JComboBox<String> Format;
+
 	public BarreTri(ControleurRecherche ctrlRech){
 	
 		int largeur=(int) modele.Constantes.w*1/9;
@@ -33,7 +35,9 @@ public class BarreTri extends Panel implements Observer{
 		Taille= new JComboBox<String>(taille);
 		Couleur= new JComboBox<String>(couleur);
 		Format= new JComboBox<String>(format);
-		
+		Button ajoutimage = new Button("Ajout d'une image");
+		ajoutimage.setName("ajoutImage");
+
 		Font font = new Font("Arial",Font.BOLD,15);
 		Font fontbarre = new Font("Arial",Font.BOLD,13);
 		
@@ -62,11 +66,14 @@ public class BarreTri extends Panel implements Observer{
 		Couleur.setFont(fontbarre);
 		Format.setFont(fontbarre);
 		
+		
+		
 		this.add(lb2);
 		this.add(nom);
 		this.add(Taille);
 		this.add(Couleur);
 		this.add(Format);
+		this.add(ajoutimage);
 }
 
 	public void switchComboBoxes() {
