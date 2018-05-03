@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import controleur.ControleurRecherche;
+import controleur.CtrlRecherche;
 import modele.Biblio;
 
 public class BarreRecherche extends Panel implements Observer {
@@ -22,7 +22,7 @@ public class BarreRecherche extends Panel implements Observer {
 	TextField tag = new TextField();
 	Label lb = new Label();
 	
-	public BarreRecherche(ControleurRecherche ctrlRech,Biblio b){
+	public BarreRecherche(CtrlRecherche ctrlRech,Biblio b){
 		this.image=b;
 		int largeur=(int) modele.Constantes.w*2/3+(int) modele.Constantes.w*1/10;;
 		int hauteur=(int) modele.Constantes.h*1/12;

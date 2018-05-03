@@ -6,14 +6,14 @@ import java.awt.event.MouseListener;
 import modele.Biblio;
 import vue.Afficher_images;
 
-public class ControleurAffichage implements MouseListener{
+public class CtrlAffichage implements MouseListener{
 	Biblio b;
 	int hauteur =(int) modele.Constantes.h*2/3;
 	int largeur=(int) modele.Constantes.w*2/3;
 	int pasX = 20;
 	int pasY = 30;
 	
-public ControleurAffichage(Biblio b){
+public CtrlAffichage(Biblio b){
 	this.b = b;
 }
 	

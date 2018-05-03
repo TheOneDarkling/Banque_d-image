@@ -3,10 +3,16 @@ package modele;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -63,7 +69,7 @@ public class Biblio extends Observable{
 		BufferedReader brCouleur = new BufferedReader(new FileReader(m_fichierCouleur));
 		String ligneCouleur;
 
-
+		
 
 		/* REMPLISSAGE DE LA LISTE D IMAGE*/
 		
@@ -75,7 +81,7 @@ public class Biblio extends Observable{
 			ligneNote = brNote.readLine();
 			ligneCouleur = brCouleur.readLine();
 			
-			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+".jpg", ligneNote, ligneCouleur)));
+			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+"."+ligneFormat, ligneNote, ligneCouleur)));
 			m_listeImage.get(i).associerLesTags(ligneTags);
 			
 			/* initialisation liste de sélection d'images */
@@ -220,6 +226,8 @@ public class Biblio extends Observable{
 	/* Ajout/Enlèvement/Réinitialisation d'images de la liste de sélection */
 	public void addImgIndex(Integer i) {
 		this.m_listeImageSelection.add(i);
+		this.setChanged();
+		this.notifyObservers("addImg");
 	}
 	
 	public void removeImgIndex(Integer i) {
@@ -249,6 +257,81 @@ public class Biblio extends Observable{
 		
 		modele.Constantes.numdebutdepage = 0;
 		this.notifyObservers("modifyListeSelection");	
+	}
+	
+	/// Ajout d'image
+	
+	private static void copyFileUsingStream(File source, File dest) throws IOException {
+	    InputStream is = null;
+	    OutputStream os = null;
+	    try {
+	        is = new FileInputStream(source);
+	        os = new FileOutputStream(dest);
+	        byte[] buffer = new byte[1024];
+	        int length;
+	        while ((length = is.read(buffer)) > 0) {
+	            os.write(buffer, 0, length);
+	        }
+	    } finally {
+	        is.close();
+	        os.close();
+	    }
+	}
+	
+	public void nouvelleImage(File selected)
+	{
+		// Copie de l'image dans le dossier
+		String extension = selected.toString().substring(selected.toString().lastIndexOf("."));
+		
+		Path p = Paths.get(selected.toString());
+		String nomImage = p.getFileName().toString();
+		nomImage = nomImage.substring(0, nomImage.indexOf("."));
+
+		File nouvelle = new File("images/" + String.valueOf(m_nbImages) + extension);
+		try {
+			copyFileUsingStream(selected, nouvelle);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// AJout DATA
+		FileWriter fw;
+		try {
+			fw = new FileWriter("data/format.txt",true);
+			fw.write(extension.substring(1)+"\n");
+			fw.close();
+			
+			fw = new FileWriter("data/note.txt",true);
+			fw.write("6\n");
+			fw.close();
+			
+			fw = new FileWriter("data/nom.txt",true);
+			fw.write(nomImage+"\n");
+			fw.close();
+			
+			fw = new FileWriter("data/tags.txt",true);
+			fw.write(nomImage+"\n");
+			fw.close();
+			
+			fw = new FileWriter("data/couleur.txt",true);
+			fw.write("none\n");
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Mise a jour
+		
+		m_listeImage.add((new ImagePerso(m_nbImages,nomImage, extension.substring(1) ,"images/"+ String.valueOf(m_nbImages) +extension, "6", "none")));
+		m_listeImage.get(m_nbImages).associerLesTags("none");
+		
+		m_listeImageSelection.add(m_nbImages);
+		m_nbImages++;
+		
+		this.setChanged();
+		this.notifyObservers("newImage");
 	}
 	
 	

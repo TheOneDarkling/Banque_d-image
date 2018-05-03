@@ -10,8 +10,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
-import controleur.ControleurAffichage;
-import controleur.ControleurNotes;
+import controleur.CtrlAffichage;
+import controleur.CtrlNotes;
 import modele.Biblio;
 import modele.ImagePerso;
 
@@ -24,7 +24,7 @@ public class Note extends JPanel{
 	
 	public static String[] libelles = {"*", "**", "***", "****", "*****" };
 	
-	public Note(Biblio b, ControleurNotes ctrl) {
+	public Note(Biblio b, CtrlNotes ctrl) {
 		this.b=b;
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(largeur, hauteur));
