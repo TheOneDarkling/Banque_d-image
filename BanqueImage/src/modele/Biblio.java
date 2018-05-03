@@ -299,23 +299,23 @@ public class Biblio extends Observable{
 		FileWriter fw;
 		try {
 			fw = new FileWriter("data/format.txt",true);
-			fw.write(extension.substring(1));
+			fw.write(extension.substring(1)+"\n");
 			fw.close();
 			
 			fw = new FileWriter("data/note.txt",true);
-			fw.write("6");
+			fw.write("6\n");
 			fw.close();
 			
 			fw = new FileWriter("data/nom.txt",true);
-			fw.write(nomImage);
+			fw.write(nomImage+"\n");
 			fw.close();
 			
 			fw = new FileWriter("data/tags.txt",true);
-			fw.write(nomImage);
+			fw.write(nomImage+"\n");
 			fw.close();
 			
 			fw = new FileWriter("data/couleur.txt",true);
-			fw.write("none");
+			fw.write("none\n");
 			fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

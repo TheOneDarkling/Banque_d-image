@@ -15,3 +15,6 @@ terre+espace+lune+bleu+noir+ciel+atmosphere
 chemin
 zika
 Coucher_soleil
+Fleurs
+Pont
+singe
