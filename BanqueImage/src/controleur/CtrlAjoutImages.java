@@ -44,7 +44,7 @@ public class CtrlAjoutImages implements MouseListener{
 		
 		File selected = jfc.getSelectedFile();
 		
-		System.out.println(selected.getAbsolutePath());
+		b.nouvelleImage(selected);
 		
 	}
 

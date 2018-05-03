@@ -3,10 +3,14 @@ package modele;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -251,6 +255,41 @@ public class Biblio extends Observable{
 		
 		modele.Constantes.numdebutdepage = 0;
 		this.notifyObservers("modifyListeSelection");	
+	}
+	
+	/// Ajout d'image
+	
+	private static void copyFileUsingStream(File source, File dest) throws IOException {
+	    InputStream is = null;
+	    OutputStream os = null;
+	    try {
+	        is = new FileInputStream(source);
+	        os = new FileOutputStream(dest);
+	        byte[] buffer = new byte[1024];
+	        int length;
+	        while ((length = is.read(buffer)) > 0) {
+	            os.write(buffer, 0, length);
+	        }
+	    } finally {
+	        is.close();
+	        os.close();
+	    }
+	}
+	
+	public void nouvelleImage(File selected)
+	{
+		// Copie de l'image dans le dossier
+		String extension = selected.toString().substring(selected.toString().lastIndexOf("."));
+
+		File nouvelle = new File("images/" + String.valueOf(m_nbImages) + extension);
+		try {
+			copyFileUsingStream(selected, nouvelle);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// AJout DATA
 	}
 	
 	
