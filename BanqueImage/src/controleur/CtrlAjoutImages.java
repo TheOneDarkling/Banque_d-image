@@ -40,11 +40,12 @@ public class CtrlAjoutImages implements MouseListener{
 		jfc.addChoosableFileFilter(tiff);
 		
 		jfc.setFileFilter(all);
-		jfc.showOpenDialog((Component) e.getSource());
+		int state = jfc.showOpenDialog((Component) e.getSource());
 		
 		File selected = jfc.getSelectedFile();
-		
-		b.nouvelleImage(selected);
+		if(state == JFileChooser.APPROVE_OPTION) {
+			b.nouvelleImage(selected);
+		}
 		
 	}
 
