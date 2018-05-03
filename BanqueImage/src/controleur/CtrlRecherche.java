@@ -18,7 +18,7 @@ import javax.swing.JComboBox;
 import modele.Biblio;
 import modele.ImagePerso;
 
-public class ControleurRecherche implements TextListener, ItemListener, ActionListener{
+public class CtrlRecherche implements TextListener, ItemListener, ActionListener{
 	Biblio b;
 	Iterator<String> itTags;
 	Set<String> searchTags;
@@ -32,7 +32,7 @@ public class ControleurRecherche implements TextListener, ItemListener, ActionLi
 	boolean[] states;
 	
 	
-	public ControleurRecherche(Biblio b){
+	public CtrlRecherche(Biblio b){
 		this.b = b;
 		this.searchTags = new HashSet<String>();
 		this.tagFound = false;

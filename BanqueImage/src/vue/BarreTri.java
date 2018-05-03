@@ -13,14 +13,15 @@ import java.util.Observer;
 
 import javax.swing.JComboBox;
 
-import controleur.ControleurRecherche;
+import controleur.CtrlAjoutImages;
+import controleur.CtrlRecherche;
 
 public class BarreTri extends Panel implements Observer{
 	JComboBox<String> Taille;
 	JComboBox<String> Couleur;
 	JComboBox<String> Format;
 
-	public BarreTri(ControleurRecherche ctrlRech){
+	public BarreTri(CtrlRecherche ctrlRech, CtrlAjoutImages ctrlImg){
 	
 		int largeur=(int) modele.Constantes.w*1/9;
 		int hauteur=(int) modele.Constantes.h*2/3;
@@ -37,6 +38,7 @@ public class BarreTri extends Panel implements Observer{
 		Format= new JComboBox<String>(format);
 		Button ajoutimage = new Button("Ajout d'une image");
 		ajoutimage.setName("ajoutImage");
+		ajoutimage.addMouseListener(ctrlImg);
 
 		Font font = new Font("Arial",Font.BOLD,15);
 		Font fontbarre = new Font("Arial",Font.BOLD,13);

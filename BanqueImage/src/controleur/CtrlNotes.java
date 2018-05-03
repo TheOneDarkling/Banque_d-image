@@ -6,10 +6,10 @@ import java.awt.event.ItemListener;
 import modele.Biblio;
 import modele.ImagePerso;
 
-public class ControleurNotes implements ItemListener{
+public class CtrlNotes implements ItemListener{
 	Biblio b;
 	
-	public ControleurNotes(Biblio b) {
+	public CtrlNotes(Biblio b) {
 		this.b = b;
 	}
 	

@@ -63,7 +63,7 @@ public class Biblio extends Observable{
 		BufferedReader brCouleur = new BufferedReader(new FileReader(m_fichierCouleur));
 		String ligneCouleur;
 
-
+		
 
 		/* REMPLISSAGE DE LA LISTE D IMAGE*/
 		
@@ -220,6 +220,8 @@ public class Biblio extends Observable{
 	/* Ajout/Enlèvement/Réinitialisation d'images de la liste de sélection */
 	public void addImgIndex(Integer i) {
 		this.m_listeImageSelection.add(i);
+		this.setChanged();
+		this.notifyObservers("addImg");
 	}
 	
 	public void removeImgIndex(Integer i) {

@@ -6,9 +6,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
-import controleur.ControleurAffichage;
-import controleur.ControleurNotes;
-import controleur.ControleurRecherche;
+import controleur.CtrlAffichage;
+import controleur.CtrlAjoutImages;
+import controleur.CtrlNotes;
+import controleur.CtrlRecherche;
 import modele.Biblio;
 
 public class Fenetre extends Frame implements WindowListener {
@@ -16,13 +17,14 @@ public class Fenetre extends Frame implements WindowListener {
 	public Fenetre() {
 		try {
 			Biblio b = new Biblio();
-			ControleurAffichage ctrlAff = new ControleurAffichage(b);
-			ControleurRecherche ctrlRech = new ControleurRecherche(b);
-			ControleurNotes ctrlNotes = new ControleurNotes(b);
+			CtrlAffichage ctrlAff = new CtrlAffichage(b);
+			CtrlRecherche ctrlRech = new CtrlRecherche(b);
+			CtrlNotes ctrlNotes = new CtrlNotes(b);
+			CtrlAjoutImages ctrlImg = new CtrlAjoutImages(b);
 			
 			this.setLayout(new BorderLayout());
 			
-			BarreTri bTri = new BarreTri(ctrlRech);
+			BarreTri bTri = new BarreTri(ctrlRech, ctrlImg);
 			b.addObserver(bTri);
 			this.add(bTri, BorderLayout.WEST);
 
