@@ -11,6 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -280,6 +282,10 @@ public class Biblio extends Observable{
 	{
 		// Copie de l'image dans le dossier
 		String extension = selected.toString().substring(selected.toString().lastIndexOf("."));
+		
+		Path p = Paths.get(selected.toString());
+		String nomImage = p.getFileName().toString();
+		nomImage = nomImage.substring(0, nomImage.indexOf("."));
 
 		File nouvelle = new File("images/" + String.valueOf(m_nbImages) + extension);
 		try {
@@ -290,6 +296,31 @@ public class Biblio extends Observable{
 		}
 		
 		// AJout DATA
+		FileWriter fw;
+		try {
+			fw = new FileWriter("data/format.txt",true);
+			fw.write(extension.substring(extension.indexOf(1)));
+			fw.close();
+			
+			fw = new FileWriter("data/note.txt",true);
+			fw.write("6");
+			fw.close();
+			
+			fw = new FileWriter("data/nom.txt",true);
+			fw.write(nomImage);
+			fw.close();
+			
+			fw = new FileWriter("data/tags.txt",true);
+			fw.write(nomImage);
+			fw.close();
+			
+			fw = new FileWriter("data/couleur.txt",true);
+			fw.write("none");
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
