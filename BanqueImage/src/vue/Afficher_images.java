@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,8 +18,7 @@ import modele.Biblio;
 
 public class Afficher_images extends Canvas implements Observer{
 	Biblio image;
-	Image[] img;
-	Image[] imgre;
+	ArrayList<Image> img;
 	int hauteur =(int) modele.Constantes.h*2/3;
 	int largeur=(int) modele.Constantes.w*2/3;
 	int pasX = 20;
@@ -32,14 +32,14 @@ public class Afficher_images extends Canvas implements Observer{
 		this.setBackground(new Color(200,200,200));
 		this.setPreferredSize(new Dimension(largeur,hauteur));
 	
-		this.img = new Image[image.m_listeImage.size()];
+		this.img = new ArrayList<Image>();
 	
 		
 		for (int i = 0; i < image.m_listeImage.size(); i++) {
 
 			try {
 
-				img[i] = ImageIO.read(new File(image.m_listeImage.get(i).m_lien));
+				this.img.add(ImageIO.read(new File(image.m_listeImage.get(i).m_lien)));
 				
 			
 		
@@ -60,7 +60,7 @@ public class Afficher_images extends Canvas implements Observer{
 	
 
 	public void paint(Graphics g ) {
-		if (modele.Constantes.estengrand){g.drawImage(img[image.m_listeImageSelection.get(modele.Constantes.numimage)], 0, 0, largeur, hauteur, null);
+		if (modele.Constantes.estengrand){g.drawImage(img.get(image.m_listeImageSelection.get(modele.Constantes.numimage)), 0, 0, largeur, hauteur, null);
 			
 		}
 		else{
@@ -69,7 +69,7 @@ public class Afficher_images extends Canvas implements Observer{
 
 		for (int i = modele.Constantes.numdebutdepage*8; i < (modele.Constantes.numdebutdepage+1)*8; i++) {
 			if (i <=image.m_listeImageSelection.size()-1) {
-				g.drawImage(img[image.m_listeImageSelection.get(i)],(pasX+(largeur-(pasX*5))/4) * (i%4)+pasX,((pasY+(pasX+(largeur-(pasX*5))/4))*((i/4)%2)+pasY),(largeur-(pasX*5))/4,(largeur-(pasX*5))/4,null);
+				g.drawImage(img.get(image.m_listeImageSelection.get(i)),(pasX+(largeur-(pasX*5))/4) * (i%4)+pasX,((pasY+(pasX+(largeur-(pasX*5))/4))*((i/4)%2)+pasY),(largeur-(pasX*5))/4,(largeur-(pasX*5))/4,null);
 				Font font = new Font("Arial",Font.BOLD,15);
 				g.setFont(font);
 				g.drawString(image.m_listeImage.get(image.m_listeImageSelection.get(i)).m_titre, (pasX+(largeur-(pasX*5))/4) * (i%4)+(largeur-(pasX*5))/8, ((pasY+(pasX+(largeur-(pasX*5))/4))*((i/4)%2)+pasY)-10);
@@ -80,7 +80,14 @@ public class Afficher_images extends Canvas implements Observer{
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
+	public void update(Observable arg0, Object message) {
+		if(message.toString().equals("newImage")) {
+			try {
+				this.img.add(ImageIO.read(new File(image.m_listeImage.get(image.m_listeImage.size()-1).m_lien)));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		repaint();
 		
 	}

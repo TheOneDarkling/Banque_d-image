@@ -81,7 +81,7 @@ public class Biblio extends Observable{
 			ligneNote = brNote.readLine();
 			ligneCouleur = brCouleur.readLine();
 			
-			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+".jpg", ligneNote, ligneCouleur)));
+			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+"."+ligneFormat, ligneNote, ligneCouleur)));
 			m_listeImage.get(i).associerLesTags(ligneTags);
 			
 			/* initialisation liste de sélection d'images */
@@ -329,6 +329,9 @@ public class Biblio extends Observable{
 		
 		m_listeImageSelection.add(m_nbImages);
 		m_nbImages++;
+		
+		this.setChanged();
+		this.notifyObservers("newImage");
 	}
 	
 	
