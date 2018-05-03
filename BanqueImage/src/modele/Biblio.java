@@ -299,7 +299,7 @@ public class Biblio extends Observable{
 		FileWriter fw;
 		try {
 			fw = new FileWriter("data/format.txt",true);
-			fw.write(extension.substring(extension.indexOf(1)));
+			fw.write(extension.substring(1));
 			fw.close();
 			
 			fw = new FileWriter("data/note.txt",true);
@@ -321,6 +321,14 @@ public class Biblio extends Observable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		// Mise a jour
+		
+		m_listeImage.add((new ImagePerso(m_nbImages,nomImage, extension.substring(1) ,"images/"+ String.valueOf(m_nbImages) +extension, "6", "none")));
+		m_listeImage.get(m_nbImages).associerLesTags("none");
+		
+		m_listeImageSelection.add(m_nbImages);
+		m_nbImages++;
 	}
 	
 	
