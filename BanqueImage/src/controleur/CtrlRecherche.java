@@ -182,7 +182,7 @@ public class CtrlRecherche implements TextListener, ItemListener, ActionListener
 					break;
 				case "Format":
 					if(!event.getItem().toString().startsWith(titre)) {
-						rechExtension = box.getSelectedItem().toString().substring(1);
+						rechExtension = box.getSelectedItem().toString();
 					}else {
 						rechExtension = "";
 					}
@@ -199,7 +199,6 @@ public class CtrlRecherche implements TextListener, ItemListener, ActionListener
 		if(modele.Constantes.estengrand) {
 			TextField t = (TextField)e.getSource();
 			ImagePerso img = b.m_listeImage.get(b.m_listeImageSelection.get(modele.Constantes.numimage));
-			//t.setText(img.m_listeTags.toString());
 			String[] imgTags = t.getText().trim().split(" +");
 			for(String tag: imgTags) {
 				if(!img.m_listeTags.contains(tag) && !tag.isEmpty()) {

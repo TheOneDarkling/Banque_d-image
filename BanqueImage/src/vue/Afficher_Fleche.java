@@ -47,7 +47,7 @@ public class Afficher_Fleche extends Canvas implements Observer  {
 
 	@Override
 	public void update(Observable arg0, Object message) {
-		if(message.toString().equals("page") || message.toString().equals("modifyListeSelection")) {
+		if(message.toString().equals("page") || message.toString().equals("modifyListeSelection") || message.toString().equals("newImage")) {
 			repaint();
 		}		
 	}

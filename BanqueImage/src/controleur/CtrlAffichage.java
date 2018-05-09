@@ -3,6 +3,10 @@ package controleur;
 import java.awt.Canvas;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+
 import modele.Biblio;
 import vue.Afficher_images;
 
@@ -46,8 +50,13 @@ public CtrlAffichage(Biblio b){
 				}else if(indexImage+8*modele.Constantes.numdebutdepage<b.m_listeImageSelection.size()
 						&& imgBorderLeft <= xCoord && xCoord <= imgBorderRight
 						&& imgBorderTop <= yCoord && yCoord <= imgBorderBottom) {
-					b.setNumImage(indexImage + 8*modele.Constantes.numdebutdepage);
-					b.toggleImage();
+					if(e.getButton() == MouseEvent.BUTTON3) {
+						MenuClicDroit clicDroit = new MenuClicDroit(b, indexImage+8*modele.Constantes.numdebutdepage);
+						clicDroit.show(e.getComponent(), e.getX(), e.getY());
+					}else{
+						b.setNumImage(indexImage + 8*modele.Constantes.numdebutdepage);
+						b.toggleImage();
+					}
 				}
 				break;
 			case "fleches":

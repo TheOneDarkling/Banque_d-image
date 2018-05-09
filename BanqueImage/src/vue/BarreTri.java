@@ -36,10 +36,15 @@ public class BarreTri extends Panel implements Observer{
 		Taille= new JComboBox<String>(taille);
 		Couleur= new JComboBox<String>(couleur);
 		Format= new JComboBox<String>(format);
-		Button ajoutimage = new Button("Ajout d'une image");
+		Button ajoutimage = new Button("Ajouter une image");
 		ajoutimage.setName("ajoutImage");
 		ajoutimage.addMouseListener(ctrlImg);
 
+		Button ajoutDossier = new Button("Ajouter un dossier");
+		ajoutDossier.setName("ajoutDossier");
+		ajoutDossier.addMouseListener(ctrlImg);
+		
+		
 		Font font = new Font("Arial",Font.BOLD,15);
 		Font fontbarre = new Font("Arial",Font.BOLD,13);
 		
@@ -76,6 +81,7 @@ public class BarreTri extends Panel implements Observer{
 		this.add(Couleur);
 		this.add(Format);
 		this.add(ajoutimage);
+		this.add(ajoutDossier);
 }
 
 	public void switchComboBoxes() {

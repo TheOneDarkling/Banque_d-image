@@ -3,48 +3,44 @@ package modele;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class ImagePerso {
+public class ImagePerso implements Serializable{
 	
   public int m_id;
   public String m_titre;
   public String m_format;
   public String m_lien;
   public String m_couleur;
-  public ArrayList<String> m_listeTags= new ArrayList();
+  public ArrayList<String> m_listeTags;
   public double m_hauteur;
   public double m_largeur;
   public double m_byte;
   public int m_note;
  
-  
-  public ImagePerso(int id, String titre, String format, String lien, String note, String couleur)
-  {
+  public ImagePerso(int id, File image) {
 	  m_id = id;
-	  m_titre = titre;
-	  m_format = format;
-	  m_lien = lien;
+	  m_lien = "images/"+image.getName();
+	  m_titre = image.getName().substring(0, image.getName().lastIndexOf("."));
+	  m_format = m_lien.substring(m_lien.lastIndexOf("."));
+	  
+	  m_listeTags= new ArrayList<String>();
+	  ajouterTag(m_titre);
 	  
 	  chargerTaille();
 	  
 	  m_byte = 0;
 	  
-	  m_note = Integer.parseInt(note);
+	  m_note = -1;
 	  
-	  m_couleur = couleur;
+	  m_couleur = "none";
   }
   
-  void associerLesTags(String tags)
-  {
-	  String[] tagsTab = tags.split("\\+");  
-	  
-	  for(int i=0; i<tagsTab.length; i++)
-	  {
-		  m_listeTags.add(tagsTab[i]);
-	  }
+  public void ajouterTag(String tag) {
+	  this.m_listeTags.add(tag);
   }
   
   String afficherLesTags()
@@ -65,11 +61,12 @@ public class ImagePerso {
 	  
 	  try {
 		img = ImageIO.read(imageFile);
+		m_largeur = img.getWidth();
+		m_hauteur = img.getHeight();
+		  
+		m_byte = imageFile.length()/1000;
 	  } catch (IOException e) {e.printStackTrace();}
 	  
-	  m_largeur = img.getWidth();
-	  m_hauteur = img.getHeight();
 	  
-	  m_byte = imageFile.length()/1000;
   }
 }

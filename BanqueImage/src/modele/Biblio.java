@@ -1,19 +1,16 @@
 package modele;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Observable;
 
 
@@ -21,18 +18,10 @@ public class Biblio extends Observable{
 	
 	/* LISTES DE BASE*/
 	
-	public ArrayList<ImagePerso> m_listeImage= new ArrayList();
+	public ArrayList<ImagePerso> m_listeImage;
 	public int m_nbImages;
 	
 	public int m_idImageModif;
-	
-	/*  OBJETS POUR LA LECTURE DANS LES FICHIERS*/
-	
-	private File m_fichierTitre = new File("data/nom.txt");
-	private File m_fichierFormat = new File("data/format.txt");
-	private File m_fichierTags = new File("data/tags.txt");
-	private File m_fichierNote = new File("data/note.txt");
-	private File m_fichierCouleur = new File("data/couleur.txt");
 	
 	
 	/* POUR LA SELECTION */
@@ -49,57 +38,68 @@ public class Biblio extends Observable{
 	
 	
 	public Biblio() throws IOException
-	{
-		File dossierImage = new File("images/");
-		m_nbImages = dossierImage.listFiles().length;
-		
+	{		
 		m_idImageModif = 0;
-		
-		
-		/* MISE EN PLACE DE LA LECTURE*/
-		
-		BufferedReader brNom = new BufferedReader(new FileReader(m_fichierTitre));
-		String ligneNom;
-		BufferedReader brFormat = new BufferedReader(new FileReader(m_fichierFormat));
-		String ligneFormat;
-		BufferedReader brTags = new BufferedReader(new FileReader(m_fichierTags));
-		String ligneTags;
-		BufferedReader brNote = new BufferedReader(new FileReader(m_fichierNote));
-		String ligneNote;
-		BufferedReader brCouleur = new BufferedReader(new FileReader(m_fichierCouleur));
-		String ligneCouleur;
+		load();
 
-		
-
-		/* REMPLISSAGE DE LA LISTE D IMAGE*/
-		
-		for(int i=0; i<m_nbImages;i++)
-		{
-			ligneNom = brNom.readLine();
-			ligneFormat = brFormat.readLine();
-			ligneTags = brTags.readLine();
-			ligneNote = brNote.readLine();
-			ligneCouleur = brCouleur.readLine();
+	}
+	
+	
+	public void save() {
+		try {
+			File saveFile = new File("data/save");
+			if(!saveFile.exists()) {
+				saveFile.createNewFile();
+			}
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
+			oos.writeObject(this.m_listeImage);
+			oos.close();
+			System.out.println("Sauvegarde réussie");
+		} catch (IOException e) {
+			System.out.println("Problème lors de la sauvegarde");
+			System.exit(-1);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void load() {
+		try {
+			File saveFile = new File("data/save");
+			if(saveFile.exists()) {
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile));
+				this.m_listeImage = (ArrayList<ImagePerso>)ois.readObject();
+				this.m_nbImages = this.m_listeImage.size();
+				this.m_listeImageSelection = new ArrayList<Integer>();
+				for(ImagePerso img: this.m_listeImage) {
+					this.m_listeImageSelection.add(img.m_id);
+				}
+				ois.close();
+				System.out.println("Chargement réussi");
+			}else {
+				System.out.println("Initialisation en cours...");
+				initListeImages();
+			}
 			
-			m_listeImage.add((new ImagePerso(i,ligneNom, ligneFormat ,"images/"+String.valueOf(i)+"."+ligneFormat, ligneNote, ligneCouleur)));
-			m_listeImage.get(i).associerLesTags(ligneTags);
+		} catch (IOException|ClassNotFoundException e) {
+			System.out.println("Problème lors du chargement. Réinitialisation...");
+			initListeImages();
+		}
+	}
+	
+	private void initListeImages() {
+		m_listeImage = new ArrayList<ImagePerso>();
+		
+		File[] dossierImage = new File("images/").listFiles();
+		m_nbImages = dossierImage.length;
+		for(int i=0; i<m_nbImages; i++) {		
+			m_listeImage.add((new ImagePerso(i, dossierImage[i])));
 			
 			/* initialisation liste de sélection d'images */
 			m_listeImageSelection.add(i);
+		
 		}
-		
-		//System.out.println(m_listeImageSelection.size() + " images selectionées");
-		
-		
-		/* FERMETURE DES FLUX */
-		
-		brFormat.close();
-		brNom.close();
-		brTags.close();
-		brNote.close();
-		brCouleur.close();
+
 	}
-	
 	/* changement de page */
 	
 	public void setNumPage(int page){
@@ -115,9 +115,7 @@ public class Biblio extends Observable{
 		{
 			m_idImageModif = modele.Constantes.numimage;
 		}
-		
-		sauveNote();
-		
+				
 		modele.Constantes.estengrand = !modele.Constantes.estengrand;
 		this.setChanged();
 		this.notifyObservers("toggle");
@@ -128,97 +126,11 @@ public class Biblio extends Observable{
 		modele.Constantes.numimage = num;
 	}
 	
-	public void sauveNote(){
-		
-		if(modele.Constantes.estengrand)
-		{
 
-			try {
-				BufferedWriter writer = new BufferedWriter(new FileWriter(new File("data/noteTemp.txt")));
-				BufferedReader lecteur = new BufferedReader(new FileReader(new File("data/note.txt")));
-				 
-				String line;
-				int compteurImg=0;
-				// Creation du fichier temporaire
-				while ((line = lecteur.readLine()) != null) {
-					
-				
-					if(compteurImg == this.m_listeImageSelection.get(m_idImageModif))
-					{
-						writer.write(String.valueOf(this.m_listeImage.get(this.m_listeImageSelection.get(m_idImageModif)).m_note));
-					}
-					else
-					{
-						writer.write(line);
-					}
-					
-					writer.write("\n");
-					
-					compteurImg++;
-				}
-				lecteur.close();
-				writer.close();
-				
-				// Mise en place nouveau fichier
-				
-				File ancien = new File("data/note.txt");
-				ancien.delete();
-				
-				File nouveau = new File("data/noteTemp.txt");
-				nouveau.renameTo( new File("data/note.txt"));
-				
-				}
-				catch (IOException e)
-				{
-				e.printStackTrace();
-				}
-		}
-	}
 	
 	public void addTag(String tag)
 	{
-		this.m_listeImage.get(this.m_listeImageSelection.get(modele.Constantes.numimage)).m_listeTags.add(tag);
-		System.out.println(String.format("L'id correspond a %s", this.m_listeImageSelection.get(modele.Constantes.numimage)));
-		
-		// Modification des fichiers tags
-		
-		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("data/tagsTemp.txt")));
-			BufferedReader lecteur = new BufferedReader(new FileReader(new File("data/tags.txt")));
-			 
-			String line;
-			int compteurImg=0;
-			// Creation du fichier temporaire
-			while ((line = lecteur.readLine()) != null) {
-				
-			writer.write(line);
-			
-			
-				if(compteurImg == this.m_listeImageSelection.get(modele.Constantes.numimage))
-				{
-					writer.write("+"+tag);
-				}
-				
-				writer.write("\n");
-				
-				compteurImg++;
-			}
-			lecteur.close();
-			writer.close();
-			
-			// Mise en place nouveau fichier
-			
-			File ancien = new File("data/tags.txt");
-			ancien.delete();
-			
-			File nouveau = new File("data/tagsTemp.txt");
-			nouveau.renameTo( new File("data/tags.txt"));
-			
-			}
-			catch (IOException e)
-			{
-			e.printStackTrace();
-			}
+		this.m_listeImage.get(this.m_listeImageSelection.get(modele.Constantes.numimage)).ajouterTag(tag);
 		this.setChanged();
 		this.notifyObservers("addTag");
 	}
@@ -259,82 +171,32 @@ public class Biblio extends Observable{
 		this.notifyObservers("modifyListeSelection");	
 	}
 	
-	/// Ajout d'image
-	
-	private static void copyFileUsingStream(File source, File dest) throws IOException {
-	    InputStream is = null;
-	    OutputStream os = null;
-	    try {
-	        is = new FileInputStream(source);
-	        os = new FileOutputStream(dest);
-	        byte[] buffer = new byte[1024];
-	        int length;
-	        while ((length = is.read(buffer)) > 0) {
-	            os.write(buffer, 0, length);
-	        }
-	    } finally {
-	        is.close();
-	        os.close();
-	    }
-	}
 	
 	public void nouvelleImage(File selected)
-	{
-		// Copie de l'image dans le dossier
-		String extension = selected.toString().substring(selected.toString().lastIndexOf("."));
-		
-		Path p = Paths.get(selected.toString());
-		String nomImage = p.getFileName().toString();
-		nomImage = nomImage.substring(0, nomImage.indexOf("."));
-
-		File nouvelle = new File("images/" + String.valueOf(m_nbImages) + extension);
+	{		
 		try {
-			copyFileUsingStream(selected, nouvelle);
+			Files.copy(selected.toPath(), new File("images/"+selected.getName()).toPath());
+			m_listeImage.add((new ImagePerso(m_nbImages,selected)));
+		
+			m_listeImageSelection.add(m_nbImages);
+			m_nbImages++;
+			
+			this.setChanged();
+			this.notifyObservers("newImage");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("ERREUR: Ajout impossible");
 		}
 		
-		// AJout DATA
-		FileWriter fw;
-		try {
-			fw = new FileWriter("data/format.txt",true);
-			fw.write(extension.substring(1)+"\n");
-			fw.close();
-			
-			fw = new FileWriter("data/note.txt",true);
-			fw.write("6\n");
-			fw.close();
-			
-			fw = new FileWriter("data/nom.txt",true);
-			fw.write(nomImage+"\n");
-			fw.close();
-			
-			fw = new FileWriter("data/tags.txt",true);
-			fw.write(nomImage+"\n");
-			fw.close();
-			
-			fw = new FileWriter("data/couleur.txt",true);
-			fw.write("none\n");
-			fw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// Mise a jour
-		
-		m_listeImage.add((new ImagePerso(m_nbImages,nomImage, extension.substring(1) ,"images/"+ String.valueOf(m_nbImages) +extension, "6", "none")));
-		m_listeImage.get(m_nbImages).associerLesTags("none");
-		
-		m_listeImageSelection.add(m_nbImages);
-		m_nbImages++;
-		
-		this.setChanged();
-		this.notifyObservers("newImage");
 	}
 	
-	
+	public void deleteImage(Integer imgIndex) {
+		this.m_listeImage.remove(this.m_listeImage.get(this.m_listeImageSelection.get(imgIndex)));
+		this.removeImgIndex(imgIndex);
+		
+		this.m_nbImages--;
+		this.setChanged();
+		this.notifyObservers("modifyListeSelection");
+	}
 	
 	/*
 	 *  LE MAIN (POUR LES TEST)

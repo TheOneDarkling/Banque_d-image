@@ -12,11 +12,12 @@ import controleur.CtrlNotes;
 import controleur.CtrlRecherche;
 import modele.Biblio;
 
-public class Fenetre extends Frame implements WindowListener {
-
+public class Fenetre extends Frame implements WindowListener{
+	Biblio b;
+	
 	public Fenetre() {
 		try {
-			Biblio b = new Biblio();
+			b = new Biblio();
 			CtrlAffichage ctrlAff = new CtrlAffichage(b);
 			CtrlRecherche ctrlRech = new CtrlRecherche(b);
 			CtrlNotes ctrlNotes = new CtrlNotes(b);
@@ -55,7 +56,7 @@ public class Fenetre extends Frame implements WindowListener {
 			this.addWindowListener(this);
 			this.pack();
 			this.setVisible(true);
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -81,6 +82,7 @@ public class Fenetre extends Frame implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
+		b.save();
 		System.exit(0);
 	}
 

@@ -53,7 +53,7 @@ public class Note extends JPanel{
 	
 	void initCheckbox() {
 		ImagePerso img = b.m_listeImage.get(b.m_listeImageSelection.get(modele.Constantes.numimage));
-		if(img.m_note != 6) {
+		if(img.m_note != -1) {
 			cg.setSelectedCheckbox(this.etoiles[img.m_note-1]);
 		}else {
 			this.resetAllCheckboxes();
